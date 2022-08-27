@@ -22,10 +22,11 @@ The goal of lightswitch is to ...
 
 ## Installation
 
-You can install the development version of lightswitch like so:
+You can install the development version of lightswitch from [GitHub](https://github.com/) with:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages("remotes")
+remotes::install_github("r4ds/lightswitch")
 ```
 
 ## Code of Conduct
