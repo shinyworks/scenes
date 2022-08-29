@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of scenes is to ...
+The goal of {scenes} is to make it easy to switch a {shiny} app between alternative 
+UIs. 
+It was designed to abstract the login-wrapper concept implemented in [{shinyslack}](https://github.com/r4ds/shinyslack).
 
 ## Installation
 
