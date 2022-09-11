@@ -17,3 +17,5 @@ Imports:
     purrr,
     rlang,
     shiny
+Suggests: 
+    pkgload

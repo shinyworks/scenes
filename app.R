@@ -5,6 +5,13 @@
 # doesn't seem to work. See ?shiny::loadSupport
 options(shiny.autoload.r = FALSE)
 
+pkgload::load_all(
+  export_all = FALSE,
+  helpers = FALSE,
+  attach_testthat = FALSE,
+  quiet = TRUE
+)
+
 ui1 <- shiny::fluidPage(
   shiny::p(
     "This is the default app."
@@ -28,15 +35,15 @@ server <- function(input, output, session) {
 
 # Add scenes.
 shiny::shinyApp(
-  ui = scenes::change_scene(
+  ui = change_scene(
     # First option: Load the app if they have a specific query parameter. Add
     # ?switch to the URL to demonstrate.
-    scenes::set_scene(
+    set_scene(
       ui = ui2,
-      scenes::req_has_query("switch")
+      req_has_query("switch")
     ),
     # Second option: Default/fall-through.
-    scenes::set_scene(ui = ui1)
+    set_scene(ui = ui1)
   ),
   server = server
 )
