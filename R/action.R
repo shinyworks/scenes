@@ -66,10 +66,10 @@ req_has_query <- function(key, value = NULL, negate = FALSE) {
 
   query <- shiny::parseQueryString(request$QUERY_STRING)
 
-  has_key <- key %in% names(query) &&
-    (is.null(value) || query[[key]] %in% value)
-
-  return(has_key)
+  return(
+    key %in% names(query) &&
+      (is.null(value) || query[[key]] %in% value)
+  )
 }
 
 #' Construct a Check Function
@@ -103,15 +103,13 @@ req_has_query <- function(key, value = NULL, negate = FALSE) {
 #' @inheritParams .construct_check_fn
 #' @param negate If `TRUE`, trigger the corresponding scene when this action is
 #'   `not` matched.
-#' @param html_dependencies Any html_dependency objects needed to process this
-#'   request.
-#' @param methods The http methods that this check function accepts.
+#' @param methods The http methods which needs to be accepted in order for this
+#'   function to make sense. Default "GET" should work in almost all cases.
 #'
 #' @return A `scene_action` object.
 #' @keywords internal
 .construct_action <- function(fn_body,
                               negate = FALSE,
-                              html_dependencies = NULL,
                               methods = "GET") {
   rlang::arg_match(
     methods,
@@ -139,18 +137,25 @@ req_has_query <- function(key, value = NULL, negate = FALSE) {
   return(
     .new_action(
       check_fn = check_fn,
-      html_dependencies = html_dependencies,
       methods = methods
     )
   )
 }
 
-.new_action <- function(check_fn, html_dependencies, methods) {
+#' Structure a Scene Action
+#'
+#' @param check_fn The function that processes the request to determine if an
+#'   associated scene should be returned.
+#' @param methods The http methods supported by this method.
+#'
+#' @return A `scene_action` object, which is a `list` with components `check_fn`
+#'   and `methods`.
+#' @keywords internal
+.new_action <- function(check_fn, methods) {
   return(
     structure(
       list(
         check_fn = check_fn,
-        html_dependencies = html_dependencies,
         methods = methods
       ),
       class = c("scene_action", "list")
