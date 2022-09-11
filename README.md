@@ -4,6 +4,9 @@
 # scenes
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/r4ds/scenes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r4ds/scenes?branch=main)
 <!-- badges: end -->
 
 The goal of {scenes} is to make it easy to switch a {shiny} app between

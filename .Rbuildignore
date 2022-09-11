@@ -4,3 +4,5 @@
 ^README\.Rmd$
 ^LICENSE\.md$
 ^app\.R
+^codecov\.yml$
+^\.github$
