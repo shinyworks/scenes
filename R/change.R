@@ -111,3 +111,5 @@ change_scene <- function(...) {
 
   return(ui)
 }
+
+utils::globalVariables("request")

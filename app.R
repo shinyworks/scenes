@@ -1,6 +1,10 @@
 # This is a demo that will eventually move into tests and/or a vignette, as soon
 # as I figure out a good way to do that.
 
+# This is supposed to keep Shiny from freaking out about the package, but it
+# doesn't seem to work. See ?shiny::loadSupport
+options(shiny.autoload.r = FALSE)
+
 ui1 <- shiny::fluidPage(
   shiny::p(
     "This is the default app."

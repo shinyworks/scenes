@@ -4,7 +4,7 @@
 \alias{.req_has_query_impl}
 \title{Check a Request for a Query with a Key}
 \usage{
-.req_has_query_impl(request, key, value = NULL)
+.req_has_query_impl(request, key, values = NULL)
 }
 \arguments{
 \item{request}{A shiny request object.}

@@ -15,4 +15,5 @@ URL: https://github.com/r4ds/scenes
 BugReports: https://github.com/r4ds/scenes/issues
 Imports: 
     purrr,
-    rlang
+    rlang,
+    shiny

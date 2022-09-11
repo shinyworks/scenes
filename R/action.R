@@ -23,7 +23,7 @@
 #' # Specify an action to detect a "language" parameter, with values containing
 #' # "en" or "es".
 #' req_has_query("language", "en|es")
-req_has_query <- function(key, value = NULL, negate = FALSE) {
+req_has_query <- function(key, values = NULL, negate = FALSE) {
   # I consciously decided NOT to vectorize this, because I think that would
   # complicate the call.
   return(
@@ -33,7 +33,7 @@ req_has_query <- function(key, value = NULL, negate = FALSE) {
           .req_has_query_impl(
             request = request,
             key = !!key,
-            value = !!value
+            values = !!values
           )
         )
       }),
@@ -58,7 +58,7 @@ req_has_query <- function(key, value = NULL, negate = FALSE) {
 #'
 #' @return A length-1 logical vector.
 #' @keywords internal
-.req_has_query_impl <- function(request, key, value = NULL) {
+.req_has_query_impl <- function(request, key, values = NULL) {
   stopifnot(
     is.character(key),
     length(key) == 1
@@ -68,7 +68,7 @@ req_has_query <- function(key, value = NULL, negate = FALSE) {
 
   return(
     key %in% names(query) &&
-      (is.null(value) || query[[key]] %in% value)
+      (is.null(values) || query[[key]] %in% values)
   )
 }
 
