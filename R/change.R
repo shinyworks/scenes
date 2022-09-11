@@ -34,9 +34,9 @@ change_scene <- function(...) {
       if (
         # A scene with no actions always triggers if we get to it.
         !length(scene$actions) ||
-        # This seems backwards! scene$actions is a list of actions, each of
-        # which has a function, so we're taking each function, and using it to
-        # test the request.
+        # This seems backwards, but isn't! scene$actions is a list of actions,
+        # each of which has a function, so we're taking each function, and using
+        # it to test the request.
         purrr::every(
           scene$actions,
           ~.x$check_fn(request)
