@@ -31,7 +31,9 @@ test_that("req_has_query returns the expected object", {
 
   # Check that they're the expected shape.
   expect_s3_class(result_key_only, c("scene_action", "list"), exact = TRUE)
-  expect_s3_class(result_key_only_negate, c("scene_action", "list"), exact = TRUE)
+  expect_s3_class(
+    result_key_only_negate, c("scene_action", "list"), exact = TRUE
+  )
   expect_s3_class(result_value, c("scene_action", "list"), exact = TRUE)
   expect_s3_class(result_value_negate, c("scene_action", "list"), exact = TRUE)
   expect_s3_class(result_values, c("scene_action", "list"), exact = TRUE)
