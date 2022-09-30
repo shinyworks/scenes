@@ -15,7 +15,7 @@
 ---
 
     Code
-      set_scene(ui = shiny::HTML("This is not a UI."), req_has_query("code"))
+      test_result
     Output
       $ui
       This is not a UI.
@@ -23,12 +23,7 @@
       $actions
       $actions[[1]]
       $check_fn
-      function (request) 
-      {
-          return(.req_has_query_impl(request = request, key = "code", 
-              values = NULL))
-      }
-      <environment: namespace:scenes>
+      [1] "ok"
       
       $methods
       [1] "GET"

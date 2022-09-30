@@ -109,7 +109,7 @@
 ---
 
     Code
-      attr(test_result, "srcref")
+      attr(test_result2, "srcref")
     Output
       function(request) {
           # Loop through the scenes, in order. If one passes, process it and return

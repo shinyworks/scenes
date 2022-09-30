@@ -115,12 +115,6 @@ test_that("req_has_query returns the expected object", {
   expect_false(result_values_negate$check_fn(query_testkey_b))
   expect_true(result_values_negate$check_fn(query_testkey_z))
 
-  # Also take snapshots in case I miss something manually. The negate ones are
-  # hard to snapshot so for now I'm skipping them.
-  expect_snapshot(result_key_only)
-  # expect_snapshot(result_key_only_negate)
-  expect_snapshot(result_value)
-  # expect_snapshot(result_value_negate)
-  expect_snapshot(result_values)
-  # expect_snapshot(result_values_negate)
+
+  # I skip snapshots here 'cuz covr borks them and I check everything directly.
 })
