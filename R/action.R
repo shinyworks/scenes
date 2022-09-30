@@ -132,7 +132,10 @@ req_has_query <- function(key, values = NULL, negate = FALSE) {
   )
 
   check_fn <- .construct_check_fn(fn_body)
-  if (negate) check_fn <- Negate(check_fn)
+
+  if (negate) {
+    check_fn <- Negate(check_fn)
+  }
 
   return(
     .new_action(

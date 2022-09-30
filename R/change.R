@@ -14,7 +14,8 @@ change_scene <- function(...) {
     # TODO: Once we add a default, it will be ok for there not to be any dots,
     # and thus no scenes.
     rlang::abort(
-      "You must provide at least one scene."
+      "You must provide at least one scene.",
+      class = "no_scenes"
     )
   }
 
@@ -23,6 +24,10 @@ change_scene <- function(...) {
 
   # We will actually return a *function*, which shiny will feed the request
   # object into. That function will then decide which UI to display.
+
+  # covr doesn't grok this.
+
+  # nocov start
   .multi_scene_ui <- function(request) {
     # Loop through the scenes, in order. If one passes, process it and return
     # it. The structure here is partially inspired by purrr::detect, at least
@@ -53,6 +58,7 @@ change_scene <- function(...) {
     # in the package that's the default here, and have it return a 501 (Not
     # Implemented).
   }
+  # nocov end
 
   # Extract method information from the actions.
   methods <- .compile_methods(scenes)
