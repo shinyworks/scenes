@@ -15,8 +15,9 @@ test_that("Scene changing works in the most basic case.", {
     attr(test_result, "http_methods_supported"),
     "GET"
   )
-  expect_snapshot(
-    attr(test_result, "srcref")
+  expect_identical(
+    test_result(list(a = 1)),
+    "default ui"
   )
 })
 
@@ -42,9 +43,6 @@ test_that("Scene change functions work as expected", {
   expect_identical(
     attr(test_result, "http_methods_supported"),
     "GET"
-  )
-  expect_snapshot(
-    attr(test_result, "srcref")
   )
 
   # As with actions, different queries should yield different outputs.
@@ -118,13 +116,5 @@ test_that("Scene changes work for ui functions.", {
   expect_identical(
     test_result2(list(a = 1)),
     "1"
-  )
-
-  # Test snaps at the end to get better coverage counts.
-  expect_snapshot(
-    attr(test_result, "srcref")
-  )
-  expect_snapshot(
-    attr(test_result2, "srcref")
   )
 })

@@ -6,3 +6,4 @@
 ^app\.R
 ^codecov\.yml$
 ^\.github$
+^rsconnect$
