@@ -47,7 +47,7 @@ req_has_query <- function(key, values = NULL, negate = FALSE) {
 #' Report whether a request includes a `QUERY_STRING` object with a specified
 #' `key`, and optionally a specific value for that key.
 #'
-#' @param request A shiny request object.
+#' @inheritParams .shared-parameters
 #' @param key The key that must be present, as a length-1 character vector.
 #' @param values Details about what to look for in the `key`. `NULL` indicates
 #'   that the `key` must be present but its contents are unimportant for this
