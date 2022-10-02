@@ -11,9 +11,7 @@ change_scene <- function(...) {
   scenes <- rlang::list2(...)
 
   if (!length(scenes)) {
-    # TODO: Once we add a default, it will be ok for there not to be any dots,
-    # and thus no scenes.
-    rlang::abort(
+    cli::cli_abort(
       "You must provide at least one scene.",
       class = "no_scenes"
     )
@@ -52,11 +50,6 @@ change_scene <- function(...) {
         )
       }
     }
-
-    # TODO: Include a default argument after ... to encourage/remind people to
-    # include SOMETHING as a fall-through. I'll probably include a ui-function
-    # in the package that's the default here, and have it return a 501 (Not
-    # Implemented).
   }
   # nocov end
 
@@ -102,9 +95,6 @@ change_scene <- function(...) {
 #' @return A shiny ui as a [shiny::tagList()].
 #' @keywords internal
 .parse_ui <- function(ui, request) {
-  # TODO: Conceptually we might want to update the UI here, for example to add a
-  # cookie parser. I haven't worked out how/if that should be handled here.
-
   # ui can be a tagList, a 0-argument function, or a 1-argument function. Deal
   # with those.
   if (is.function(ui)) {
