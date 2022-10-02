@@ -118,3 +118,22 @@ test_that("req_has_cookie works.", {
   expect_false(result_with_validator2_negate$check_fn(req_test_3))
   expect_true(result_with_validator2_negate$check_fn(req_test_bad))
 })
+
+test_that("req_has_cookie errors cleanly.", {
+  expect_error(
+    req_has_cookie(),
+    "no default"
+  )
+  expect_error(
+    req_has_cookie(NULL),
+    "is missing"
+  )
+  expect_error(
+    req_has_cookie(letters),
+    "26 values"
+  )
+  expect_error(
+    req_has_cookie(1),
+    "<numeric> vector"
+  )
+})
