@@ -88,3 +88,22 @@ test_that("req_has_query works.", {
   expect_false(result_values_negate$check_fn(query_testkey_b))
   expect_true(result_values_negate$check_fn(query_testkey_z))
 })
+
+test_that("req_has_query errors cleanly.", {
+  expect_error(
+    req_has_query(),
+    "no default"
+  )
+  expect_error(
+    req_has_query(NULL),
+    "is missing"
+  )
+  expect_error(
+    req_has_query(letters),
+    "26 values"
+  )
+  expect_error(
+    req_has_query(1),
+    "<numeric> vector"
+  )
+})

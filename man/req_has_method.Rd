@@ -8,9 +8,9 @@
 \usage{
 req_has_method(method, negate = FALSE)
 
-req_is_get(negate)
+req_is_get(negate = FALSE)
 
-req_is_post(negate)
+req_is_post(negate = FALSE)
 }
 \arguments{
 \item{method}{The expected HTTP method.}

@@ -96,8 +96,25 @@ test_that("req_has_method works.", {
   expect_true(result_post2n$check_fn(request_get))
   expect_false(result_post2n$check_fn(request_post))
   expect_true(result_post2n$check_fn(request_other))
+})
 
-  # Add errors.
+test_that("req_has_method errors meaningfully.", {
+  expect_error(
+    req_has_method(),
+    "0 values"
+  )
+  expect_error(
+    req_has_method(NULL),
+    "0 values"
+  )
+  expect_error(
+    req_has_method(letters),
+    "26 values"
+  )
+  expect_error(
+    req_has_method("bad_method"),
+    "Unknown"
+  )
 })
 
 test_that("req_is_get works.", {
@@ -128,5 +145,36 @@ test_that("req_is_get works.", {
   expect_true(negative$check_fn(request_empty))
   expect_false(negative$check_fn(request_get))
   expect_true(negative$check_fn(request_post))
+  expect_true(negative$check_fn(request_other))
+})
+
+test_that("req_is_post works.", {
+  positive <- req_is_post()
+  negative <- req_is_post(negate = TRUE)
+
+  # Check basic properties to make sure they're being constructed right.
+  expect_s3_class(positive, c("scene_action", "list"), exact = TRUE)
+
+  # The methods are important here.
+  expect_identical(positive$methods, "POST")
+  expect_identical(negative$methods, "POST")
+
+  # Set up a bunch of queries to use for tests.
+  request_missing <- list()
+  request_empty <- list(REQUEST_METHOD = NULL)
+  request_get <- list(REQUEST_METHOD = "GET")
+  request_post <- list(REQUEST_METHOD = "POST")
+  request_other <- list(REQUEST_METHOD = "OTHER")
+
+  expect_false(positive$check_fn(request_missing))
+  expect_false(positive$check_fn(request_empty))
+  expect_false(positive$check_fn(request_get))
+  expect_true(positive$check_fn(request_post))
+  expect_false(positive$check_fn(request_other))
+
+  expect_true(negative$check_fn(request_missing))
+  expect_true(negative$check_fn(request_empty))
+  expect_true(negative$check_fn(request_get))
+  expect_false(negative$check_fn(request_post))
   expect_true(negative$check_fn(request_other))
 })

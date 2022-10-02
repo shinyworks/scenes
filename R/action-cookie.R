@@ -39,9 +39,9 @@ req_has_cookie <- function(cookie_name,
                            validation_fn = NULL,
                            ...,
                            negate = FALSE) {
-  stopifnot(
-    is.character(cookie_name),
-    length(cookie_name) == 1
+  .validate_character_scalar(
+    parameter = cookie_name,
+    parameter_name = "cookie_name"
   )
 
   dots <- rlang::list2(...)

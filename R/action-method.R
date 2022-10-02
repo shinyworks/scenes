@@ -14,15 +14,23 @@
 #' req_has_method("POST")
 req_has_method <- function(method, negate = FALSE) {
   valid_methods <- c(
-    "get", "post", "put",
-    "head", "delete", "patch",
-    "options", "connect", "trace"
+    "GET", "POST", "PUT",
+    "HEAD", "DELETE", "PATCH",
+    "OPTIONS", "CONNECT", "TRACE"
   )
-  method <- tolower(method)
 
-  stopifnot(
-    length(method) == 1,
-    method %in% valid_methods
+  if (missing(method)) {
+    # I combine error messaging for the various 0-length cases, since toupper
+    # coerces.
+    method <- character(0)
+  }
+
+  method <- toupper(method)
+
+  .validate_character_scalar(
+    parameter = method,
+    parameter_name = "method",
+    valid_values = valid_methods
   )
 
   return(
@@ -36,7 +44,7 @@ req_has_method <- function(method, negate = FALSE) {
         )
       }),
       negate = negate,
-      methods = toupper(method)
+      methods = method
     )
   )
 }
@@ -52,10 +60,11 @@ req_has_method <- function(method, negate = FALSE) {
 #' @return A length-1 logical vector.
 #' @keywords internal
 .req_has_method_impl <- function(request, method) {
-  return(isTRUE(tolower(request$REQUEST_METHOD) == method))
+  return(isTRUE(toupper(request$REQUEST_METHOD) == method))
 }
 
 #' @rdname req_has_method
+#' @export
 #' @examples
 #' req_is_get()
 #' req_is_get(negate = TRUE)
@@ -66,6 +75,7 @@ req_is_get <- function(negate = FALSE) {
 }
 
 #' @rdname req_has_method
+#' @export
 #' @examples
 #' req_is_post()
 #' req_is_post(negate = TRUE)
