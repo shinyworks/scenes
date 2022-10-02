@@ -3,16 +3,16 @@
 #' Create a `scene_action` specifying the HTTP method that must be used (or not
 #' used).
 #'
-#' @inheritParams .req_has_method_impl
+#' @inheritParams .req_uses_method_impl
 #' @inheritParams .construct_action
 #'
 #' @return A `scene_action` object, to be used in [set_scene()].
 #' @export
 #'
 #' @examples
-#' req_has_method("GET")
-#' req_has_method("POST")
-req_has_method <- function(method, negate = FALSE) {
+#' req_uses_method("GET")
+#' req_uses_method("POST")
+req_uses_method <- function(method, negate = FALSE) {
   valid_methods <- c(
     "GET", "POST", "PUT",
     "HEAD", "DELETE", "PATCH",
@@ -37,7 +37,7 @@ req_has_method <- function(method, negate = FALSE) {
     .construct_action(
       fn_body = rlang::expr({
         return(
-          .req_has_method_impl(
+          .req_uses_method_impl(
             request = request,
             method = !!method
           )
@@ -59,28 +59,28 @@ req_has_method <- function(method, negate = FALSE) {
 #'
 #' @return A length-1 logical vector.
 #' @keywords internal
-.req_has_method_impl <- function(request, method) {
+.req_uses_method_impl <- function(request, method) {
   return(isTRUE(toupper(request$REQUEST_METHOD) == method))
 }
 
-#' @rdname req_has_method
+#' @rdname req_uses_method
 #' @export
 #' @examples
 #' req_is_get()
 #' req_is_get(negate = TRUE)
 req_is_get <- function(negate = FALSE) {
   return(
-    req_has_method("GET", negate = negate)
+    req_uses_method("GET", negate = negate)
   )
 }
 
-#' @rdname req_has_method
+#' @rdname req_uses_method
 #' @export
 #' @examples
 #' req_is_post()
 #' req_is_post(negate = TRUE)
 req_is_post <- function(negate = FALSE) {
   return(
-    req_has_method("POST", negate = negate)
+    req_uses_method("POST", negate = negate)
   )
 }

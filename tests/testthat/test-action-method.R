@@ -1,30 +1,30 @@
-test_that("req_has_method works.", {
+test_that("req_uses_method works.", {
   # Construct objects that I'll use in tests.
-  result_get1 <- req_has_method(
+  result_get1 <- req_uses_method(
     method = "get"
   )
-  result_get1n <- req_has_method(
+  result_get1n <- req_uses_method(
     method = "get",
     negate = TRUE
   )
-  result_get2 <- req_has_method(
+  result_get2 <- req_uses_method(
     method = "GET"
   )
-  result_get2n <- req_has_method(
+  result_get2n <- req_uses_method(
     method = "GET",
     negate = TRUE
   )
-  result_post1 <- req_has_method(
+  result_post1 <- req_uses_method(
     method = "post"
   )
-  result_post1n <- req_has_method(
+  result_post1n <- req_uses_method(
     method = "post",
     negate = TRUE
   )
-  result_post2 <- req_has_method(
+  result_post2 <- req_uses_method(
     method = "POST"
   )
-  result_post2n <- req_has_method(
+  result_post2n <- req_uses_method(
     method = "POST",
     negate = TRUE
   )
@@ -98,21 +98,21 @@ test_that("req_has_method works.", {
   expect_true(result_post2n$check_fn(request_other))
 })
 
-test_that("req_has_method errors meaningfully.", {
+test_that("req_uses_method errors meaningfully.", {
   expect_error(
-    req_has_method(),
+    req_uses_method(),
     "0 values"
   )
   expect_error(
-    req_has_method(NULL),
+    req_uses_method(NULL),
     "0 values"
   )
   expect_error(
-    req_has_method(letters),
+    req_uses_method(letters),
     "26 values"
   )
   expect_error(
-    req_has_method("bad_method"),
+    req_uses_method("bad_method"),
     "Unknown"
   )
 })
