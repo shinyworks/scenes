@@ -26,6 +26,11 @@
 req_has_query <- function(key, values = NULL, negate = FALSE) {
   # I consciously decided NOT to vectorize this, because I think that would
   # complicate the call.
+  stopifnot(
+    is.character(key),
+    length(key) == 1
+  )
+
   return(
     .construct_action(
       fn_body = rlang::expr({
@@ -59,11 +64,6 @@ req_has_query <- function(key, values = NULL, negate = FALSE) {
 #' @return A length-1 logical vector.
 #' @keywords internal
 .req_has_query_impl <- function(request, key, values = NULL) {
-  stopifnot(
-    is.character(key),
-    length(key) == 1
-  )
-
   query <- shiny::parseQueryString(request$QUERY_STRING)
 
   return(

@@ -39,6 +39,11 @@ req_has_cookie <- function(cookie_name,
                            validation_fn = NULL,
                            ...,
                            negate = FALSE) {
+  stopifnot(
+    is.character(cookie_name),
+    length(cookie_name) == 1
+  )
+
   dots <- rlang::list2(...)
   return(
     .construct_action(
@@ -76,11 +81,6 @@ req_has_cookie <- function(cookie_name,
                                  cookie_name,
                                  validation_fn,
                                  ...) {
-  stopifnot(
-    is.character(cookie_name),
-    length(cookie_name) == 1
-  )
-
   cookie_value <- .extract_cookie(request, cookie_name)
 
   # If that's NA the cookie wasn't there, so we're done.
