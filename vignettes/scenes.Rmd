@@ -1,0 +1,149 @@
+---
+title: "Changing scenes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Changing scenes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scenes)
+```
+
+When a `{shiny}` app loads, it receives a `request` object, with properties such as `QUERY_STRING` (the `?x=1&y=2` part of the url) and `HTTP_COOKIE` (the names and values of cookies).
+Use `{scenes}` to switch between alternative `{shiny}` UIs depending on properties of that `request` object.
+
+## Why?
+
+It's possible to process the `request` using a UI *function,* instead of a standard `shiny::tagList()`.
+So why not process the `request` through such a function?
+
+I created `{scenes}` to write a single login process for the apps I produce for the [R4DS Online Learning Community](https://r4ds.io).
+The goal was to create each UI without having to think about login, and then wrap those UIs in the common login framework.
+That process became the [`{shinyslack}`](https://r4ds.io/shinyslackgh) package.
+
+Perhaps you have your own login process.
+Or perhaps you want to show completely different UIs to different customer segments visiting the same URL, depending on a cookie or a query parameter.
+`{scenes}` exists to enables these workflows.
+
+## A toy example
+
+Here I'll demonstrate a simple example of changing UIs based on various `request` parameters.
+Soon I will add a more realistic example (the process used by `{shinyslack}`) in a separate vignette, and point to it here.
+
+### The UIs
+
+First we'll create four extremely simple UIs.
+In a real `{scenes}` app, these should each be a `shiny::tagList()` UI or UI function.
+
+```{r UIs}
+ui1 <- "This is UI 1."
+ui2 <- "This is UI 2."
+ui3 <- "This is UI 3."
+ui4 <- "This is UI 4."
+```
+
+We'll use *actions* to decide which of those UIs to display.
+
+### Scenes and actions
+
+In `{scenes}`, a `shiny_scene` associates a UI with one or more `scene_actions` that are used to choose it.
+In this case, we'll display our UIs in these four situations:
+
+- Display `ui1` when the user has a particular cookie set and the value of that cookie successfully passes a validation function.
+- Display `ui2` when the user has that cookie set, but their value doesn't validate.
+- Display `ui3` when the user has a particular parameter in the URL query string.
+- Display `ui4` when none of those cases are true.
+In a real app, this would likely be the login screen, or perhaps an error page.
+
+In this toy example, our cookies are "valid" if they have a certain number of characters.
+That number of character changes sometimes, so we have a function that accepts both the cookie value and the number of characters.
+
+```{r ui1-validation}
+our_cookie_validator <- function(cookie_value, N) {
+  nchar(cookie_value) == N
+}
+```
+
+We wrap `ui1` with the `req_has_cookie()` action, into a `shiny_scene`.
+
+```{r scene1}
+scene1 <- set_scene(
+  ui1,
+  req_has_cookie(
+    cookie_name = "our_cookie",
+    validation_fn = our_cookie_validator,
+    N = 27 # We can pass variable through to our validator.
+  )
+)
+```
+
+The `shiny_scene` for `ui2` is similar, but we negate the validation.
+Technically we could just skip the validation, but I want to show all of the options.
+
+```{r scene2}
+scene2 <- set_scene(
+  ui2,
+  req_has_cookie(
+    cookie_name = "our_cookie",
+    validation_fn = our_cookie_validator,
+    N = 27,
+    negate = TRUE
+  )
+)
+```
+
+For `ui3`, we're looking for a parameter named "code". 
+We don't care what the value is (if we did, we'd pass a vector of acceptable values).
+
+```{r scene3}
+scene3 <- set_scene(
+  ui3,
+  req_has_query("code")
+)
+```
+
+Finally, we set up a scene without any actions for our fall-through UI.
+
+```{r scene4}
+scene4 <- set_scene(
+  ui4
+)
+```
+
+### Scene changes
+
+We wrap our scenes together with `change_scene()`.
+We list the UIs in priority order.
+
+```{r change}
+ui <- change_scene(
+  scene1,
+  scene2,
+  scene3,
+  scene4
+)
+```
+
+We can use `ui` just like any other `{shiny}` UI.
+
+```{r shiny, eval = FALSE}
+# Define a single server function. Any UI that the user sees will use this
+# shared backend.
+server <- function(input, output, session) {
+  # This doesn't actually do anything.
+}
+
+shiny::shinyApp(
+  ui = ui,
+  server = server
+)
+```
