@@ -3,17 +3,29 @@
 #' Generate the check function for an action, and use it to create a
 #' `scene_action` object.
 #'
-#' @inheritParams .construct_check_fn
+#' @param fn A function that takes a request (and potentially other arguments)
+#'   and returns `TRUE` or `FALSE`.
+#' @param ... Additional parameters passed on to `fn`.
 #' @param negate If `TRUE`, trigger the corresponding scene when this action is
 #'   `not` matched.
 #' @param methods The http methods which needs to be accepted in order for this
 #'   function to make sense. Default "GET" should work in almost all cases.
 #'
 #' @return A `scene_action` object.
-#' @keywords internal
-.construct_action <- function(fn_body,
-                              negate = FALSE,
-                              methods = "GET") {
+#' @export
+#'
+#' @examples
+#' simple_function <- function(request) {
+#'   !missing(request) && length(request) > 0
+#' }
+#' sample_action <- construct_action(simple_function)
+#' sample_action$check_fn()
+#' sample_action$check_fn(list())
+#' sample_action$check_fn(list(a = 1))
+construct_action <- function(fn,
+                             ...,
+                             negate = FALSE,
+                             methods = "GET") {
   rlang::arg_match(
     methods,
     c(
@@ -34,7 +46,10 @@
     length(negate) == 1
   )
 
-  check_fn <- .construct_check_fn(fn_body)
+  check_fn <- fn
+  if (...length()) {
+    check_fn <- purrr::partial({{ fn }}, ...)
+  }
 
   if (negate) {
     check_fn <- Negate(check_fn)
@@ -44,28 +59,6 @@
     .new_action(
       check_fn = check_fn,
       methods = methods
-    )
-  )
-}
-
-#' Construct a Check Function
-#'
-#' This is a function factory for creating the actual function that will be
-#' called to test the request.
-#'
-#' @param fn_body The quoted body of the function. This should be everything
-#'   that would appear inside the `{}` of a function (and the brackets
-#'   themselves), inside a call to [rlang::expr()]. Usually this will include
-#'   variables that should be diffused using `!!`.
-#'
-#' @return A function.
-#' @keywords internal
-.construct_check_fn <- function(body) {
-  return(
-    rlang::new_function(
-      rlang::pairlist2(request = ),
-      body,
-      env = rlang::env_parent()
     )
   )
 }

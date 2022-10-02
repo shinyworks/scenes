@@ -4,7 +4,7 @@
 #' and optionally a check function for that cookie.
 #'
 #' @inheritParams .req_has_cookie_impl
-#' @inheritParams .construct_action
+#' @inheritParams construct_action
 #'
 #' @return A `scene_action` object, to be used in [set_scene()].
 #' @export
@@ -44,19 +44,12 @@ req_has_cookie <- function(cookie_name,
     parameter_name = "cookie_name"
   )
 
-  dots <- rlang::list2(...)
   return(
-    .construct_action(
-      fn_body = rlang::expr({
-        return(
-          .req_has_cookie_impl(
-            request = request,
-            cookie_name = !!cookie_name,
-            validation_fn = !!validation_fn,
-            !!!dots
-          )
-        )
-      }),
+    construct_action(
+      fn = .req_has_cookie_impl,
+      cookie_name = cookie_name,
+      validation_fn = validation_fn,
+      ...,
       negate = negate
     )
   )

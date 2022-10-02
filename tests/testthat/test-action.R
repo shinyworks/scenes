@@ -1,14 +1,14 @@
 test_that("action constructors work.", {
-  test_action <- .construct_action(
-    fn_body = rlang::expr({
-      return(length(request) > 1)
-    }),
+  simple_function <- function(request) {
+    !missing(request) && length(request) > 1
+  }
+
+  test_action <- construct_action(
+    fn = simple_function,
     negate = FALSE
   )
-  test_action_negate <- .construct_action(
-    fn_body = rlang::expr({
-      return(length(request) > 1)
-    }),
+  test_action_negate <- construct_action(
+    fn = simple_function,
     negate = TRUE
   )
 

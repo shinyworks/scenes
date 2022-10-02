@@ -1,0 +1,79 @@
+---
+title: "Creating new actions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating new actions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scenes)
+```
+
+Actions (class `scene_action`) contain the functions that are used to process a `request` and determine which `ui` should be displayed.
+We provide five actions:
+
+- `req_has_cookie()`
+- `req_has_query()`
+- `req_uses_method()`
+- `req_uses_get()`
+- `req_uses_get()`
+
+A scene can require multiple actions to be true.
+If you need to rely on multiple query parameters, or a cookie and a query parameter, stringing together multiple actions will probably suffice.
+
+However, you may wish to construct more complicated actions, such as multiple alternative query parameters (`or`, not `and`), or check a request parameter that we do not support.
+You can do so using `construct_action()`.
+
+## Check function
+
+Underlying each action is a **check function,** a function that takes a request (and potentially other arguments), and returns `TRUE` or `FALSE`.
+
+Here we'll implement a check for the language preferred by the user, which is sent in the `HTTP_ACCEPT_LANGUAGE` property of the request.
+
+We include `_impl` in the name of this function to specify that it's the implentation function, as opposed to the main wrapper that we'll create below.
+For this we'll just look for the supplied "language" inside the `HTTP_ACCEPT_LANGUAGE` object.
+In an exported function, we'd probably more carefully parse that object.
+
+```{r req_accepts_language}
+req_accepts_language_impl <- function(request, language) {
+  stringr::str_detect(
+    tolower(request$HTTP_ACCEPT_LANGUAGE), 
+    tolower(language)
+  )
+}
+req_accepts_language_impl(list(HTTP_ACCEPT_LANGUAGE = "en-US,en;es-MX,es;fr-CA,fr"), "fr")
+```
+
+## Methods
+
+Almost all actions will expect the `GET` method.
+However, it is possible for shiny apps to respond to requests using other HTTP methods.
+If your action should work with a different HTTP method, specify that in the call to the contructor.
+
+## Construct action
+
+Construct the action using the `construct_action()` function.
+
+```{r construct_action}
+req_accepts_language <- function(language) {
+  construct_action(
+    fn = req_accepts_language_impl,
+    language = language,
+    # We're using the defaults for these arguments, but I'll specify them for
+    # clarity.
+    negate = FALSE,
+    methods = "GET"
+  )
+}
+```
+
+Now you can use this action to construct scenes, just like any other action.

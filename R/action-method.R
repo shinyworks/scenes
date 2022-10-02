@@ -4,7 +4,7 @@
 #' used).
 #'
 #' @inheritParams .req_uses_method_impl
-#' @inheritParams .construct_action
+#' @inheritParams construct_action
 #'
 #' @return A `scene_action` object, to be used in [set_scene()].
 #' @export
@@ -34,15 +34,9 @@ req_uses_method <- function(method, negate = FALSE) {
   )
 
   return(
-    .construct_action(
-      fn_body = rlang::expr({
-        return(
-          .req_uses_method_impl(
-            request = request,
-            method = !!method
-          )
-        )
-      }),
+    construct_action(
+      fn = .req_uses_method_impl,
+      method = method,
       negate = negate,
       methods = method
     )

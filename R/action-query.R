@@ -8,7 +8,7 @@
 #' their corresponding values.
 #'
 #' @inheritParams .req_has_query_impl
-#' @inheritParams .construct_action
+#' @inheritParams construct_action
 #'
 #' @return A `scene_action` object, to be used in [set_scene()].
 #' @export
@@ -31,17 +31,12 @@ req_has_query <- function(key, values = NULL, negate = FALSE) {
     parameter_name = "key"
   )
 
+
   return(
-    .construct_action(
-      fn_body = rlang::expr({
-        return(
-          .req_has_query_impl(
-            request = request,
-            key = !!key,
-            values = !!values
-          )
-        )
-      }),
+    construct_action(
+      fn = .req_has_query_impl,
+      key = key,
+      values = values,
       negate = negate
     )
   )
