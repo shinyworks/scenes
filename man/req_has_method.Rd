@@ -2,9 +2,15 @@
 % Please edit documentation in R/action-method.R
 \name{req_has_method}
 \alias{req_has_method}
+\alias{req_is_get}
+\alias{req_is_post}
 \title{Switch Scenes on Method}
 \usage{
 req_has_method(method, negate = FALSE)
+
+req_is_get(negate)
+
+req_is_post(negate)
 }
 \arguments{
 \item{method}{The expected HTTP method.}
@@ -22,4 +28,8 @@ used).
 \examples{
 req_has_method("GET")
 req_has_method("POST")
+req_is_get()
+req_is_get(negate = TRUE)
+req_is_post()
+req_is_post(negate = TRUE)
 }

@@ -54,3 +54,23 @@ req_has_method <- function(method, negate = FALSE) {
 .req_has_method_impl <- function(request, method) {
   return(isTRUE(tolower(request$REQUEST_METHOD) == method))
 }
+
+#' @rdname req_has_method
+#' @examples
+#' req_is_get()
+#' req_is_get(negate = TRUE)
+req_is_get <- function(negate = FALSE) {
+  return(
+    req_has_method("GET", negate = negate)
+  )
+}
+
+#' @rdname req_has_method
+#' @examples
+#' req_is_post()
+#' req_is_post(negate = TRUE)
+req_is_post <- function(negate = FALSE) {
+  return(
+    req_has_method("POST", negate = negate)
+  )
+}
