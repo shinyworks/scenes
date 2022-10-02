@@ -1,12 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# scenes
+# scenes <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 
 [![Codecov test
 coverage](https://codecov.io/gh/r4ds/scenes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r4ds/scenes?branch=main)
+[![R-CMD-check](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of {scenes} is to make it easy to switch a {shiny} app between
