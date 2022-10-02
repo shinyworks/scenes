@@ -48,7 +48,7 @@ req_has_cookie(
 req_has_cookie(
   cookie_name = "mycookie",
   validation_fn = function(cookie_value, N) {
-    nchar(cookie_value == N)
+    nchar(cookie_value) == N
   },
   N = 27
 )

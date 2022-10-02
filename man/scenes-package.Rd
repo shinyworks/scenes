@@ -6,6 +6,8 @@
 \alias{scenes-package}
 \title{scenes: Switch Between Alternative Shiny UIs}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Sometimes it is useful to serve up alternative shiny UIs depending on information passed in the request object, such as the value of a cookie. This packages facilitates such switches.
 }
 \seealso{
