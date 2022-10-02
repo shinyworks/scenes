@@ -117,9 +117,9 @@ test_that("req_uses_method errors meaningfully.", {
   )
 })
 
-test_that("req_is_get works.", {
-  positive <- req_is_get()
-  negative <- req_is_get(negate = TRUE)
+test_that("req_uses_get works.", {
+  positive <- req_uses_get()
+  negative <- req_uses_get(negate = TRUE)
 
   # Check basic properties to make sure they're being constructed right.
   expect_s3_class(positive, c("scene_action", "list"), exact = TRUE)
@@ -148,9 +148,9 @@ test_that("req_is_get works.", {
   expect_true(negative$check_fn(request_other))
 })
 
-test_that("req_is_post works.", {
-  positive <- req_is_post()
-  negative <- req_is_post(negate = TRUE)
+test_that("req_uses_post works.", {
+  positive <- req_uses_post()
+  negative <- req_uses_post(negate = TRUE)
 
   # Check basic properties to make sure they're being constructed right.
   expect_s3_class(positive, c("scene_action", "list"), exact = TRUE)

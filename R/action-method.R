@@ -66,9 +66,9 @@ req_uses_method <- function(method, negate = FALSE) {
 #' @rdname req_uses_method
 #' @export
 #' @examples
-#' req_is_get()
-#' req_is_get(negate = TRUE)
-req_is_get <- function(negate = FALSE) {
+#' req_uses_get()
+#' req_uses_get(negate = TRUE)
+req_uses_get <- function(negate = FALSE) {
   return(
     req_uses_method("GET", negate = negate)
   )
@@ -77,9 +77,9 @@ req_is_get <- function(negate = FALSE) {
 #' @rdname req_uses_method
 #' @export
 #' @examples
-#' req_is_post()
-#' req_is_post(negate = TRUE)
-req_is_post <- function(negate = FALSE) {
+#' req_uses_post()
+#' req_uses_post(negate = TRUE)
+req_uses_post <- function(negate = FALSE) {
   return(
     req_uses_method("POST", negate = negate)
   )
