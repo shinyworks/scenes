@@ -9,29 +9,11 @@
 #'   `actions`.
 #' @export
 set_scene <- function(ui, ...) {
-  # TODO: Validate that the UI will work in .parse_ui. I actually might want to
-  # enquo it in case they wrapped it, for example if we give them the option to
-  # wrap a ui to add cookie handlers. For now we'll "validate" it simply by
-  # passing it along.
-
-  # TODO: Validate the actions. Make sure they expect a single argument. Maybe
-  # require that that argument is named `request`? If there's no action, this is
-  # a default.
-
-  # TODO: Figure out whether the htmlDependencies part is anything. I do this
-  # all with the request, right? Maybe provide helper wrappers for uis to add
-  # them?
-
   actions <- rlang::list2(...)
 
   # Standardize zero-length-vector actions and NULL actions to be the same
   # thing.
   if (!length(actions)) actions <- NULL
-
-  # TODO: Something to watch for: incompatible actions, like requiring POST but
-  # then other actions are GET only. See shiny:::uiHttpHandler for why that
-  # matters. Right now we'd let that through by allowing all of the methods, but
-  # it could lead to errors downstream.
 
   # Wrap them up and return them.
   return(
