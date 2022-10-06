@@ -51,10 +51,8 @@ req_has_query <- function(key, values = NULL, negate = FALSE) {
 #' @param key The key that must be present, as a length-1 character vector.
 #' @param values Details about what to look for in the `key`. `NULL` indicates
 #'   that the `key` must be present but its contents are unimportant for this
-#'   action. Otherwise `values` will be passed to the `pattern` argument of
-#'   [stringr::str_detect()] (with the actual value of `key` passed to the
-#'   `string` argument). Note that the default interpretation of `values` is
-#'   therefore a regular expressions.
+#'   action. Otherwise the actual value of the query must be present in
+#'   `values`.
 #'
 #' @return A length-1 logical vector.
 #' @keywords internal

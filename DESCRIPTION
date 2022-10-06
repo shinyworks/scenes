@@ -1,6 +1,6 @@
 Package: scenes
 Title: Switch Between Alternative Shiny UIs
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     person("Jon", "Harmon", , "jonthegeek@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4781-4346"))
@@ -16,6 +16,7 @@ BugReports: https://github.com/r4ds/scenes/issues
 Imports: 
     cli,
     glue,
+    htmltools,
     httpuv,
     purrr,
     rlang,
@@ -25,6 +26,7 @@ Suggests:
     knitr,
     pkgload,
     rmarkdown,
+    stringr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr

@@ -11,10 +11,8 @@ req_has_query(key, values = NULL, negate = FALSE)
 
 \item{values}{Details about what to look for in the \code{key}. \code{NULL} indicates
 that the \code{key} must be present but its contents are unimportant for this
-action. Otherwise \code{values} will be passed to the \code{pattern} argument of
-\code{\link[stringr:str_detect]{stringr::str_detect()}} (with the actual value of \code{key} passed to the
-\code{string} argument). Note that the default interpretation of \code{values} is
-therefore a regular expressions.}
+action. Otherwise the actual value of the query must be present in
+\code{values}.}
 
 \item{negate}{If \code{TRUE}, trigger the corresponding scene when this action is
 \code{not} matched.}
