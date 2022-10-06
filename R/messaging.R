@@ -23,7 +23,11 @@
     parameter,
     parameter_name,
     valid_values,
-    special_message = "{parameter_name} is a {.cls {class(parameter)}} vector, not a {.cls character} vector."
+    special_message = paste(
+      "{parameter_name} is a {.cls {class(parameter)}} vector,",
+      "not a {.cls character} vector."
+    )
+
   )
 }
 

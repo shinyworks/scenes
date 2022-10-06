@@ -50,7 +50,10 @@ req_accepts_language_impl <- function(request, language) {
     tolower(language)
   )
 }
-req_accepts_language_impl(list(HTTP_ACCEPT_LANGUAGE = "en-US,en;es-MX,es;fr-CA,fr"), "fr")
+req_accepts_language_impl(
+  list(HTTP_ACCEPT_LANGUAGE = "en-US,en;es-MX,es;fr-CA,fr"), 
+  "fr"
+)
 ```
 
 ## Methods
