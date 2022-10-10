@@ -21,6 +21,8 @@ Imports:
     purrr,
     rlang,
     shiny
+Remotes:
+    r4ds/cookies
 Suggests: 
     covr,
     knitr,
