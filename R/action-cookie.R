@@ -74,7 +74,7 @@ req_has_cookie <- function(cookie_name,
                                  cookie_name,
                                  validation_fn,
                                  ...) {
-  cookie_value <- .extract_cookie(request, cookie_name)
+  cookie_value <- cookies::extract_cookie(request, cookie_name)
 
   # If that's NA the cookie wasn't there, so we're done.
   if (is.na(cookie_value)) {
