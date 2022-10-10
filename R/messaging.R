@@ -27,7 +27,6 @@
       "{parameter_name} is a {.cls {class(parameter)}} vector,",
       "not a {.cls character} vector."
     )
-
   )
 }
 
