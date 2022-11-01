@@ -1,10 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# scenes <img src="man/figures/logo.png" align="right" height="139" />
+# scenes <a href="https://r4ds.github.io/scenes/"><img src="man/figures/logo.svg" align="right" height="424" /></a>
 
 <!-- badges: start -->
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/scenes)](https://CRAN.R-project.org/package=scenes)
 [![Codecov test
 coverage](https://codecov.io/gh/r4ds/scenes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r4ds/scenes?branch=main)
 [![R-CMD-check](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml)
@@ -23,6 +27,10 @@ You can install the development version of scenes from
 # install.packages("remotes")
 remotes::install_github("r4ds/scenes")
 ```
+
+## Use Cases
+
+Add at least a short description here.
 
 ## Code of Conduct
 

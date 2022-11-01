@@ -4,16 +4,17 @@
 \name{scenes-package}
 \alias{scenes}
 \alias{scenes-package}
-\title{scenes: Switch Between Alternative Shiny UIs}
+\title{scenes: Switch Between Alternative 'shiny' UIs}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Sometimes it is useful to serve up alternative shiny UIs depending on information passed in the request object, such as the value of a cookie. This packages facilitates such switches.
+Sometimes it is useful to serve up alternative 'shiny' UIs depending on information passed in the request object, such as the value of a cookie. This packages facilitates such switches.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://github.com/r4ds/scenes}
+  \item \url{https://r4ds.github.io/scenes/}
   \item Report bugs at \url{https://github.com/r4ds/scenes/issues}
 }
 

@@ -1,18 +1,19 @@
 Package: scenes
-Title: Switch Between Alternative Shiny UIs
+Title: Switch Between Alternative 'shiny' UIs
 Version: 0.0.0.9003
 Authors@R: c(
     person("Jon", "Harmon", , "jonthegeek@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-4781-4346"))
     )
-Description: Sometimes it is useful to serve up alternative shiny UIs depending 
-    on information passed in the request object, such as the value of a cookie. 
-    This packages facilitates such switches.
+Description: Sometimes it is useful to serve up alternative 'shiny' UIs 
+    depending on information passed in the request object, such as the value of 
+    a cookie. This packages facilitates such switches.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
-URL: https://github.com/r4ds/scenes
+URL: https://github.com/r4ds/scenes,
+    https://r4ds.github.io/scenes/
 BugReports: https://github.com/r4ds/scenes/issues
 Imports: 
     cli,

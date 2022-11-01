@@ -7,3 +7,6 @@
 ^codecov\.yml$
 ^\.github$
 ^rsconnect$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
