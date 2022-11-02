@@ -32,6 +32,23 @@ remotes::install_github("r4ds/scenes")
 
 Add at least a short description here.
 
+## Similar Packages
+
+Other packages have implemented features in this domain.
+
+- [{brochure}](https://github.com/ColinFay/brochure): This package
+  appears to have a great deal of overlap with {scenes}. Colin Fay’s
+  implementation appears to potentially be more robust and more complete
+  than {scenes}, but at the cost of diverging farther from a “normal”
+  shiny app.
+- [{shiny.router}](https://appsilon.com/shiny-router-020/): This package
+  from [Appsilon](https://appsilon.com) appears to be conceptually
+  similar to {scenes}, but focused on routing based on URL. Of the three
+  packages listed here, this is the only one available on CRAN.
+- [{blaze}](https://github.com/nteetor/blaze): This package from Nate
+  Teetor also focuses on routing based on URL. The resulting shiny apps
+  are switched via the server function.
+
 ## Code of Conduct
 
 Please note that the scenes project is released with a [Contributor Code
