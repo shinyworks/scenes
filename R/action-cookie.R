@@ -76,8 +76,9 @@ req_has_cookie <- function(cookie_name,
                                  ...) {
   cookie_value <- cookies::extract_cookie(request, cookie_name)
 
-  # If that's NULL the cookie wasn't there, so we're done.
-  if (is.null(cookie_value)) {
+  # If that's NULL the cookie wasn't there, so we're done. I allow for the NA
+  # missing value from cookies for now, will require the newer version soon.
+  if (is.null(cookie_value) || is.na(cookie_value)) {
     return(FALSE)
   }
 
