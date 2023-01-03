@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(scenes)
 ```
 
-When a `{shiny}` app loads, it receives a `request` object, with properties such as `QUERY_STRING` (the `?x=1&y=2` part of the url) and `HTTP_COOKIE` (the names and values of cookies).
+When a `{shiny}` app loads, it receives a `request` object, with properties such as `QUERY_STRING` (the `?x=1&y=2` part of a url) and `HTTP_COOKIE` (the names and values of cookies).
 Use `{scenes}` to switch between alternative `{shiny}` UIs depending on properties of that `request` object.
 
 ## Why?
@@ -37,18 +37,46 @@ Or perhaps you want to show completely different UIs to different customer segme
 ## A toy example
 
 Here I'll demonstrate a simple example of changing UIs based on various `request` parameters.
-Soon I will add a more realistic example (the process used by `{shinyslack}`) in a separate vignette, and point to it here.
 
 ### The UIs
 
-First we'll create four extremely simple UIs.
+First we'll create four simple UIs.
+You can ignore the specifics of these UIs for now, but you might want to come back to see how they work once you run the app.
 In a real `{scenes}` app, these should each be a `shiny::tagList()` UI or UI function.
 
 ```{r UIs}
-ui1 <- "This is UI 1."
-ui2 <- "This is UI 2."
-ui3 <- "This is UI 3."
-ui4 <- "This is UI 4."
+# ui1 loads if none of the requirements are met.
+ui1 <- shiny::tagList(
+  shiny::p("This is UI 1."),
+  shiny::a("Add '?code' to the URL to see UI 2.", href = "?code")
+)
+
+# ui2 allows us to create the cookie requirement for ui3.
+ui2 <- cookies::add_cookie_handlers(
+  shiny::tagList(
+    shiny::p("This is UI 2."),
+    shiny::actionButton("cookie_simple", "Store Simple Cookie"),
+    shiny::p("Press the button to see UI 3.")
+  )
+)
+
+# ui3 allows us to update that cookie to one that will pass validation.
+ui3 <- cookies::add_cookie_handlers(
+  shiny::tagList(
+    shiny::p("This is UI 3."),
+    shiny::actionButton("cookie_valid", "Store Valid Cookie"),
+    shiny::p("Press the button to see UI 4.")
+  )
+)
+
+# ui4 only loads when everything is all set. It has a button to reset things.
+ui4 <- cookies::add_cookie_handlers(
+  shiny::tagList(
+    shiny::p("This is UI 4."),
+    shiny::actionButton("reset", "Reset"),
+    shiny::p("Press the button to go back to UI 2.")
+  )
+)
 ```
 
 We'll use *actions* to decide which of those UIs to display.
@@ -58,88 +86,109 @@ We'll use *actions* to decide which of those UIs to display.
 In `{scenes}`, a `shiny_scene` associates a UI with one or more `scene_actions` that are used to choose it.
 In this case, we'll display our UIs in these four situations:
 
-- Display `ui1` when the user has a particular cookie set and the value of that cookie successfully passes a validation function.
-- Display `ui2` when the user has that cookie set, but their value doesn't validate.
-- Display `ui3` when the user has a particular parameter in the URL query string.
-- Display `ui4` when none of those cases are true.
-In a real app, this would likely be the login screen, or perhaps an error page.
+-   Display `ui4` when the user has a particular cookie set and the value of that cookie successfully passes a validation function.
+-   Display `ui3` when the user has that cookie set, but their value doesn't validate.
+-   Display `ui2` when the user has a particular parameter in the URL query string.
+-   Display `ui1` when none of those cases are true. In a real app, this final UI would likely be the login screen, or perhaps an error page.
 
-In this toy example, our cookies are "valid" if they have a certain number of characters.
-That number of character changes sometimes, so we have a function that accepts both the cookie value and the number of characters.
+In this toy example, our cookies are "valid" if they have a certain value.
+That value changes sometimes, so we create a validation function that accepts both the cookie value and the acceptable value.
 
-```{r ui1-validation}
-our_cookie_validator <- function(cookie_value, N) {
-  nchar(cookie_value) == N
+```{r ui4-validation}
+our_cookie_validator <- function(cookie_value, acceptable) {
+  cookie_value == acceptable
 }
 ```
 
-We wrap `ui1` with the `req_has_cookie()` action, into a `shiny_scene`.
+We wrap `ui4` with the `req_has_cookie()` action, into a `shiny_scene`.
 
-```{r scene1}
-scene1 <- set_scene(
-  ui1,
+```{r scene4}
+scene4 <- set_scene(
+  ui4,
   req_has_cookie(
     cookie_name = "our_cookie",
     validation_fn = our_cookie_validator,
-    N = 27 # We can pass variable through to our validator.
+    acceptable = "good value" # We can pass variables through to our validator.
   )
 )
 ```
 
-The `shiny_scene` for `ui2` is similar, but we negate the validation.
-Technically we could just skip the validation, but I want to show all of the options.
-
-```{r scene2}
-scene2 <- set_scene(
-  ui2,
-  req_has_cookie(
-    cookie_name = "our_cookie",
-    validation_fn = our_cookie_validator,
-    N = 27,
-    negate = TRUE
-  )
-)
-```
-
-For `ui3`, we're looking for a parameter named "code". 
-We don't care what the value is (if we did, we'd pass a vector of acceptable values).
+The `shiny_scene` for `ui3` is similar, but we skip the validation.
+In other words, they must have the cookie set, but we don't care what value it has.
 
 ```{r scene3}
 scene3 <- set_scene(
   ui3,
+  req_has_cookie(
+    cookie_name = "our_cookie"
+  )
+)
+```
+
+For `ui2`, we're looking for a parameter named "code".
+We don't care what the value is (if we did, we'd pass a vector of acceptable values).
+
+```{r scene2}
+scene2 <- set_scene(
+  ui2,
   req_has_query("code")
 )
 ```
 
 Finally, we set up a scene without any actions for our fall-through UI.
 
-```{r scene4}
-scene4 <- set_scene(
-  ui4
+```{r scene1}
+scene1 <- set_scene(
+  ui1
 )
 ```
 
 ### Scene changes
 
 We wrap our scenes together with `change_scene()`.
-We list the UIs in priority order.
+We list the scenes in priority order.
 
 ```{r change}
 ui <- change_scene(
-  scene1,
-  scene2,
+  scene4,
   scene3,
-  scene4
+  scene2,
+  scene1
 )
 ```
 
-We can use `ui` just like any other `{shiny}` UI.
+We can use this `ui` just like any other `{shiny}` UI.
 
 ```{r shiny, eval = FALSE}
-# Define a single server function. Any UI that the user sees will use this
-# shared backend.
+# Any UI that the user sees will use this
+# shared server backend.
 server <- function(input, output, session) {
-  # This doesn't actually do anything.
+  # If they press the button in ui2, save a cookie and reload.
+  shiny::observeEvent(
+    input$cookie_simple,
+    {
+      cookies::set_cookie("our_cookie", "bad value")
+      session$reload()
+    }
+  )
+  
+  # If they press the button in ui3, save a "valid" cookie and reload.
+  shiny::observeEvent(
+    input$cookie_valid,
+    {
+      cookies::set_cookie("our_cookie", "good value")
+      session$reload()
+    }
+  )
+  
+  # If they press the reset button in ui4, delete the cookie and reload.
+  shiny::observeEvent(
+    input$reset,
+    {
+      cookies::remove_cookie("our_cookie")
+      session$reload()
+    }
+  )
 }
 
 shiny::shinyApp(
