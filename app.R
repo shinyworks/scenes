@@ -5,9 +5,14 @@
 # doesn't seem to work. See ?shiny::loadSupport
 options(shiny.autoload.r = FALSE)
 
-# This is the app created in the scenes.Rmd vignette.
+pkgload::load_all(
+  export_all = FALSE,
+  helpers = FALSE,
+  attach_testthat = FALSE,
+  quiet = TRUE
+)
 
-library(scenes)
+# This is the app created in the scenes.Rmd vignette.
 
 # ui1 loads if none of the requirements are met.
 ui1 <- shiny::tagList(
