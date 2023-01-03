@@ -91,8 +91,8 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r4ds/scenes" class="external-link">scenes</a></span><span class="op">)</span></span></code></pre></div>
 <p>When a <a href="https://shiny.rstudio.com/" class="external-link">shiny</a> app loads, it receives a
 <code>request</code> object, with properties such as
-<code>QUERY_STRING</code> (the <code>?x=1&amp;y=2</code> part of the
-url) and <code>HTTP_COOKIE</code> (the names and values of cookies). Use
+<code>QUERY_STRING</code> (the <code>?x=1&amp;y=2</code> part of a url)
+and <code>HTTP_COOKIE</code> (the names and values of cookies). Use
 <a href="https://github.com/r4ds/scenes" class="external-link">scenes</a> to switch between alternative <a href="https://shiny.rstudio.com/" class="external-link">shiny</a>
 UIs depending on properties of that <code>request</code> object.</p>
 <div class="section level2">
@@ -116,20 +116,47 @@ same URL, depending on a cookie or a query parameter.
 <h2 id="a-toy-example">A toy example<a class="anchor" aria-label="anchor" href="#a-toy-example"></a>
 </h2>
 <p>Here I’ll demonstrate a simple example of changing UIs based on
-various <code>request</code> parameters. Soon I will add a more
-realistic example (the process used by <code>{shinyslack}</code>) in a
-separate vignette, and point to it here.</p>
+various <code>request</code> parameters.</p>
 <div class="section level3">
 <h3 id="the-uis">The UIs<a class="anchor" aria-label="anchor" href="#the-uis"></a>
 </h3>
-<p>First we’ll create four extremely simple UIs. In a real
-<a href="https://github.com/r4ds/scenes" class="external-link">scenes</a> app, these should each be a
-<code><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">shiny::tagList()</a></code> UI or UI function.</p>
+<p>First we’ll create four simple UIs. You can ignore the specifics of
+these UIs for now, but you might want to come back to see how they work
+once you run the app. In a real <a href="https://github.com/r4ds/scenes" class="external-link">scenes</a> app, these should
+each be a <code><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">shiny::tagList()</a></code> UI or UI function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ui1</span> <span class="op">&lt;-</span> <span class="st">"This is UI 1."</span></span>
-<span><span class="va">ui2</span> <span class="op">&lt;-</span> <span class="st">"This is UI 2."</span></span>
-<span><span class="va">ui3</span> <span class="op">&lt;-</span> <span class="st">"This is UI 3."</span></span>
-<span><span class="va">ui4</span> <span class="op">&lt;-</span> <span class="st">"This is UI 4."</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># ui1 loads if none of the requirements are met.</span></span>
+<span><span class="va">ui1</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"This is UI 1."</span><span class="op">)</span>,</span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">a</a></span><span class="op">(</span><span class="st">"Add '?code' to the URL to see UI 2."</span>, href <span class="op">=</span> <span class="st">"?code"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ui2 allows us to create the cookie requirement for ui3.</span></span>
+<span><span class="va">ui2</span> <span class="op">&lt;-</span> <span class="fu">cookies</span><span class="fu">::</span><span class="fu"><a href="https://r4ds.github.io/cookies/reference/add_cookie_handlers.html" class="external-link">add_cookie_handlers</a></span><span class="op">(</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"This is UI 2."</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"cookie_simple"</span>, <span class="st">"Store Simple Cookie"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"Press the button to see UI 3."</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ui3 allows us to update that cookie to one that will pass validation.</span></span>
+<span><span class="va">ui3</span> <span class="op">&lt;-</span> <span class="fu">cookies</span><span class="fu">::</span><span class="fu"><a href="https://r4ds.github.io/cookies/reference/add_cookie_handlers.html" class="external-link">add_cookie_handlers</a></span><span class="op">(</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"This is UI 3."</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"cookie_valid"</span>, <span class="st">"Store Valid Cookie"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"Press the button to see UI 4."</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ui4 only loads when everything is all set. It has a button to reset things.</span></span>
+<span><span class="va">ui4</span> <span class="op">&lt;-</span> <span class="fu">cookies</span><span class="fu">::</span><span class="fu"><a href="https://r4ds.github.io/cookies/reference/add_cookie_handlers.html" class="external-link">add_cookie_handlers</a></span><span class="op">(</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">tagList</a></span><span class="op">(</span></span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"This is UI 4."</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/actionButton.html" class="external-link">actionButton</a></span><span class="op">(</span><span class="st">"reset"</span>, <span class="st">"Reset"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"Press the button to go back to UI 2."</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>We’ll use <em>actions</em> to decide which of those UIs to
 display.</p>
 </div>
@@ -140,83 +167,104 @@ display.</p>
 with one or more <code>scene_actions</code> that are used to choose it.
 In this case, we’ll display our UIs in these four situations:</p>
 <ul>
-<li>Display <code>ui1</code> when the user has a particular cookie set
+<li>Display <code>ui4</code> when the user has a particular cookie set
 and the value of that cookie successfully passes a validation
 function.</li>
-<li>Display <code>ui2</code> when the user has that cookie set, but
+<li>Display <code>ui3</code> when the user has that cookie set, but
 their value doesn’t validate.</li>
-<li>Display <code>ui3</code> when the user has a particular parameter in
+<li>Display <code>ui2</code> when the user has a particular parameter in
 the URL query string.</li>
-<li>Display <code>ui4</code> when none of those cases are true. In a
-real app, this would likely be the login screen, or perhaps an error
-page.</li>
+<li>Display <code>ui1</code> when none of those cases are true. In a
+real app, this final UI would likely be the login screen, or perhaps an
+error page.</li>
 </ul>
 <p>In this toy example, our cookies are “valid” if they have a certain
-number of characters. That number of character changes sometimes, so we
-have a function that accepts both the cookie value and the number of
-characters.</p>
+value. That value changes sometimes, so we create a validation function
+that accepts both the cookie value and the acceptable value.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">our_cookie_validator</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cookie_value</span>, <span class="va">N</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">cookie_value</span><span class="op">)</span> <span class="op">==</span> <span class="va">N</span></span>
+<code class="sourceCode R"><span><span class="va">our_cookie_validator</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cookie_value</span>, <span class="va">acceptable</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">cookie_value</span> <span class="op">==</span> <span class="va">acceptable</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>We wrap <code>ui1</code> with the <code><a href="../reference/req_has_cookie.html">req_has_cookie()</a></code>
+<p>We wrap <code>ui4</code> with the <code><a href="../reference/req_has_cookie.html">req_has_cookie()</a></code>
 action, into a <code>shiny_scene</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scene1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
-<span>  <span class="va">ui1</span>,</span>
+<code class="sourceCode R"><span><span class="va">scene4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
+<span>  <span class="va">ui4</span>,</span>
 <span>  <span class="fu"><a href="../reference/req_has_cookie.html">req_has_cookie</a></span><span class="op">(</span></span>
 <span>    cookie_name <span class="op">=</span> <span class="st">"our_cookie"</span>,</span>
 <span>    validation_fn <span class="op">=</span> <span class="va">our_cookie_validator</span>,</span>
-<span>    N <span class="op">=</span> <span class="fl">27</span> <span class="co"># We can pass variable through to our validator.</span></span>
+<span>    acceptable <span class="op">=</span> <span class="st">"good value"</span> <span class="co"># We can pass variables through to our validator.</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The <code>shiny_scene</code> for <code>ui2</code> is similar, but we
-negate the validation. Technically we could just skip the validation,
-but I want to show all of the options.</p>
+<p>The <code>shiny_scene</code> for <code>ui3</code> is similar, but we
+skip the validation. In other words, they must have the cookie set, but
+we don’t care what value it has.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scene2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
-<span>  <span class="va">ui2</span>,</span>
+<code class="sourceCode R"><span><span class="va">scene3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
+<span>  <span class="va">ui3</span>,</span>
 <span>  <span class="fu"><a href="../reference/req_has_cookie.html">req_has_cookie</a></span><span class="op">(</span></span>
-<span>    cookie_name <span class="op">=</span> <span class="st">"our_cookie"</span>,</span>
-<span>    validation_fn <span class="op">=</span> <span class="va">our_cookie_validator</span>,</span>
-<span>    N <span class="op">=</span> <span class="fl">27</span>,</span>
-<span>    negate <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    cookie_name <span class="op">=</span> <span class="st">"our_cookie"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>For <code>ui3</code>, we’re looking for a parameter named “code”. We
+<p>For <code>ui2</code>, we’re looking for a parameter named “code”. We
 don’t care what the value is (if we did, we’d pass a vector of
 acceptable values).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scene3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
-<span>  <span class="va">ui3</span>,</span>
+<code class="sourceCode R"><span><span class="va">scene2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
+<span>  <span class="va">ui2</span>,</span>
 <span>  <span class="fu"><a href="../reference/req_has_query.html">req_has_query</a></span><span class="op">(</span><span class="st">"code"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we set up a scene without any actions for our fall-through
 UI.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">scene4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
-<span>  <span class="va">ui4</span></span>
+<code class="sourceCode R"><span><span class="va">scene1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/set_scene.html">set_scene</a></span><span class="op">(</span></span>
+<span>  <span class="va">ui1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scene-changes">Scene changes<a class="anchor" aria-label="anchor" href="#scene-changes"></a>
 </h3>
 <p>We wrap our scenes together with <code><a href="../reference/change_scene.html">change_scene()</a></code>. We list
-the UIs in priority order.</p>
+the scenes in priority order.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/change_scene.html">change_scene</a></span><span class="op">(</span></span>
-<span>  <span class="va">scene1</span>,</span>
-<span>  <span class="va">scene2</span>,</span>
+<span>  <span class="va">scene4</span>,</span>
 <span>  <span class="va">scene3</span>,</span>
-<span>  <span class="va">scene4</span></span>
+<span>  <span class="va">scene2</span>,</span>
+<span>  <span class="va">scene1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>We can use <code>ui</code> just like any other <a href="https://shiny.rstudio.com/" class="external-link">shiny</a>
-UI.</p>
+<p>We can use this <code>ui</code> just like any other
+<a href="https://shiny.rstudio.com/" class="external-link">shiny</a> UI.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Define a single server function. Any UI that the user sees will use this</span></span>
-<span><span class="co"># shared backend.</span></span>
+<code class="sourceCode R"><span><span class="co"># Any UI that the user sees will use this</span></span>
+<span><span class="co"># shared server backend.</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># This doesn't actually do anything.</span></span>
+<span>  <span class="co"># If they press the button in ui2, save a cookie and reload.</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">cookie_simple</span>,</span>
+<span>    <span class="op">{</span></span>
+<span>      <span class="fu">cookies</span><span class="fu">::</span><span class="fu"><a href="https://r4ds.github.io/cookies/reference/set_cookie.html" class="external-link">set_cookie</a></span><span class="op">(</span><span class="st">"our_cookie"</span>, <span class="st">"bad value"</span><span class="op">)</span></span>
+<span>      <span class="va">session</span><span class="op">$</span><span class="fu">reload</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># If they press the button in ui3, save a "valid" cookie and reload.</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">cookie_valid</span>,</span>
+<span>    <span class="op">{</span></span>
+<span>      <span class="fu">cookies</span><span class="fu">::</span><span class="fu"><a href="https://r4ds.github.io/cookies/reference/set_cookie.html" class="external-link">set_cookie</a></span><span class="op">(</span><span class="st">"our_cookie"</span>, <span class="st">"good value"</span><span class="op">)</span></span>
+<span>      <span class="va">session</span><span class="op">$</span><span class="fu">reload</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># If they press the reset button in ui4, delete the cookie and reload.</span></span>
+<span>  <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/observeEvent.html" class="external-link">observeEvent</a></span><span class="op">(</span></span>
+<span>    <span class="va">input</span><span class="op">$</span><span class="va">reset</span>,</span>
+<span>    <span class="op">{</span></span>
+<span>      <span class="fu">cookies</span><span class="fu">::</span><span class="fu"><a href="https://r4ds.github.io/cookies/reference/remove_cookie.html" class="external-link">remove_cookie</a></span><span class="op">(</span><span class="st">"our_cookie"</span><span class="op">)</span></span>
+<span>      <span class="va">session</span><span class="op">$</span><span class="fu">reload</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://shiny.rstudio.com/reference/shiny/latest/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span></span>
