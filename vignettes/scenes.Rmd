@@ -37,6 +37,7 @@ Or perhaps you want to show completely different UIs to different customer segme
 ## A toy example
 
 Here I'll demonstrate a simple example of changing UIs based on various `request` parameters.
+You can see a deployed version of this app at <https://r4dscommunity.shinyapps.io/scenes/>.
 
 ### The UIs
 
