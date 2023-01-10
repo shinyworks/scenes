@@ -118,3 +118,7 @@ test_that("Scene changes work for ui functions.", {
     "1"
   )
 })
+
+test_that("The default ui works as expected.", {
+  expect_snapshot(default_ui())
+})
