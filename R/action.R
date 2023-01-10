@@ -67,7 +67,7 @@ construct_action <- function(fn,
 #'
 #' @param check_fn The function that processes the request to determine if an
 #'   associated scene should be returned.
-#' @param methods The http methods supported by this method.
+#' @param methods The http methods supported by this action.
 #'
 #' @return A `scene_action` object, which is a `list` with components `check_fn`
 #'   and `methods`.

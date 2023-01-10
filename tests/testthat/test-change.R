@@ -1,7 +1,7 @@
 test_that("Basic scene change validation works.", {
-  expect_error(
+  expect_warning(
     change_scene(),
-    "You must provide at least one scene",
+    "No scene provided",
     class = "no_scenes"
   )
 })
@@ -117,4 +117,8 @@ test_that("Scene changes work for ui functions.", {
     test_result2(list(a = 1)),
     "1"
   )
+})
+
+test_that("The default ui works as expected.", {
+  expect_snapshot(default_ui())
 })

@@ -82,9 +82,9 @@ req_has_cookie <- function(cookie_name,
     return(FALSE)
   }
 
-  if (!is.null(validation_fn)) {
-    return(validation_fn(cookie_value, ...))
-  } else {
+  if (is.null(validation_fn)) {
     return(TRUE)
+  } else {
+    return(validation_fn(cookie_value, ...))
   }
 }

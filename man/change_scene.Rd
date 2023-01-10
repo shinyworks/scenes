@@ -4,13 +4,17 @@
 \alias{change_scene}
 \title{Choose Between Scenes}
 \usage{
-change_scene(...)
+change_scene(..., fall_through = default_ui())
 }
 \arguments{
 \item{...}{One or more \code{shiny_scene} objects.}
+
+\item{fall_through}{A ui to display if no conditions scense are valid. The
+default value, \code{\link[=default_ui]{default_ui()}}, returns an HTTP 422 statud code indicating
+that the request cannot be processed.}
 }
 \value{
-A function that processes the request object to delivery a Shiny ui.
+A function that processes the request object to deliver a Shiny ui.
 }
 \description{
 Specify a function that uses actions and the request object to choose which

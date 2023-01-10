@@ -65,14 +65,12 @@ scene2 <- set_scene(
   ui2,
   req_has_query("code")
 )
-scene1 <- set_scene(
-  ui1
-)
+
 ui <- change_scene(
   scene4,
   scene3,
   scene2,
-  scene1
+  fall_through = ui1
 )
 
 # Any UI that the user sees will use this shared server backend.
