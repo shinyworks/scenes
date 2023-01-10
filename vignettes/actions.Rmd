@@ -25,7 +25,7 @@ We provide five actions:
 - `req_has_query()`
 - `req_uses_method()`
 - `req_uses_get()`
-- `req_uses_get()`
+- `req_uses_post()`
 
 A scene can require multiple actions to be true.
 If you need to rely on multiple query parameters, or a cookie and a query parameter, stringing together multiple actions will probably suffice.
