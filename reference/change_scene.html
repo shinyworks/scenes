@@ -60,7 +60,7 @@ Shiny UI to server.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">change_scene</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">change_scene</span><span class="op">(</span><span class="va">...</span>, fall_through <span class="op">=</span> <span class="fu"><a href="default_ui.html">default_ui</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -68,12 +68,18 @@ Shiny UI to server.</p>
     <dl><dt>...</dt>
 <dd><p>One or more <code>shiny_scene</code> objects.</p></dd>
 
+
+<dt>fall_through</dt>
+<dd><p>A ui to display if no conditions scense are valid. The
+default value, <code><a href="default_ui.html">default_ui()</a></code>, returns an HTTP 422 statud code indicating
+that the request cannot be processed.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A function that processes the request object to delivery a Shiny ui.</p>
+<p>A function that processes the request object to deliver a Shiny ui.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
