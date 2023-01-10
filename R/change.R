@@ -4,15 +4,18 @@
 #' Shiny UI to server.
 #'
 #' @param ... One or more `shiny_scene` objects.
+#' @param fall_through A ui to display if no conditions scense are valid. The
+#'   default value, [default_ui()], returns an HTTP 422 statud code indicating
+#'   that the request cannot be processed.
 #'
-#' @return A function that processes the request object to delivery a Shiny ui.
+#' @return A function that processes the request object to deliver a Shiny ui.
 #' @export
-change_scene <- function(...) {
+change_scene <- function(..., fall_through = default_ui()) {
   scenes <- rlang::list2(...)
 
   if (!length(scenes)) {
-    cli::cli_abort(
-      "You must provide at least one scene.",
+    cli::cli_warn(
+      "No scene provided. All users will see the fall_through ui.",
       class = "no_scenes"
     )
   }
@@ -31,9 +34,7 @@ change_scene <- function(...) {
     # it. The structure here is partially inspired by purrr::detect, at least
     # in that it made it feel ok to do this with a for loop that we escape
     # from.
-    for (i in seq_along(scenes)) {
-      scene <- scenes[[i]]
-
+    for (scene in scenes) {
       if (
         # A scene with no actions always triggers if we get to it.
         !length(scene$actions) ||
@@ -50,6 +51,9 @@ change_scene <- function(...) {
         )
       }
     }
+
+    # If nothing succeeded, fall through.
+    return(.parse_ui(fall_through, request))
   }
   # nocov end
 
@@ -106,6 +110,28 @@ change_scene <- function(...) {
   }
 
   return(ui)
+}
+
+#' Default UI for Unprocessable Requests
+#'
+#' A plain text UI that returns an HTTP status of 422, indicating that the
+#' request was well-formed, but semantically incorrect.
+#'
+#' @return A plain text UI with status code 422.
+#' @export
+default_ui <- function() {
+  cli::cli_warn(
+    "No ui specified for this request. Loading default ui."
+  )
+
+  shiny::httpResponse(
+    status = 422,
+    content_type = "text/plain",
+    content = paste(
+      "422: Unprocessable Entity.",
+      "The conditions necessary to choose a UI were not met."
+    )
+  )
 }
 
 utils::globalVariables("request")

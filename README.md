@@ -28,9 +28,8 @@ You can install the development version of scenes from
 remotes::install_github("r4ds/scenes")
 ```
 
-## Use Cases
-
-Add at least a short description here.
+You can see a demonstration of {scenes}
+[here](https://r4ds.io/scenesdemo).
 
 ## Similar Packages
 

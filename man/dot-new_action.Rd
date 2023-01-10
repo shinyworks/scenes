@@ -10,7 +10,7 @@
 \item{check_fn}{The function that processes the request to determine if an
 associated scene should be returned.}
 
-\item{methods}{The http methods supported by this method.}
+\item{methods}{The http methods supported by this action.}
 }
 \value{
 A \code{scene_action} object, which is a \code{list} with components \code{check_fn}

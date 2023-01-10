@@ -31,7 +31,6 @@ req_has_query <- function(key, values = NULL, negate = FALSE) {
     parameter_name = "key"
   )
 
-
   return(
     construct_action(
       fn = .req_has_query_impl,
