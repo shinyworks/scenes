@@ -1,7 +1,7 @@
 test_that("Basic scene change validation works.", {
-  expect_error(
+  expect_warning(
     change_scene(),
-    "You must provide at least one scene",
+    "No scene provided",
     class = "no_scenes"
   )
 })
