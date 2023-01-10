@@ -1,8 +1,6 @@
-# This is a demo that will eventually move into tests and/or a vignette, as soon
-# as I figure out a good way to do that.
+# This is the app created in the scenes.Rmd vignette.
 
-# This is supposed to keep Shiny from freaking out about the package, but it
-# doesn't seem to work. See ?shiny::loadSupport
+# See ?shiny::loadSupport
 options(shiny.autoload.r = FALSE)
 
 pkgload::load_all(
@@ -11,8 +9,6 @@ pkgload::load_all(
   attach_testthat = FALSE,
   quiet = TRUE
 )
-
-# This is the app created in the scenes.Rmd vignette.
 
 # ui1 loads if none of the requirements are met.
 ui1 <- shiny::tagList(
