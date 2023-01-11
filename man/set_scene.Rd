@@ -18,3 +18,15 @@ A \code{shiny_scene} object, which is a list with components \code{ui} and
 \description{
 A scene is a shiny ui and the actions that trigger it.
 }
+\examples{
+scene1 <- set_scene(
+  "A shiny ui",
+  req_has_query("scene", 1)
+)
+scene1
+scene2 <- set_scene(
+  "Another shiny ui",
+  req_has_query("scene", 2)
+)
+scene2
+}

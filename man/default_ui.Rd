@@ -13,3 +13,6 @@ A plain text UI with status code 422.
 A plain text UI that returns an HTTP status of 422, indicating that the
 request was well-formed, but semantically incorrect.
 }
+\examples{
+default_ui()
+}

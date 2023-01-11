@@ -20,7 +20,13 @@ implemented in [{shinyslack}](https://github.com/r4ds/shinyslack).
 
 ## Installation
 
-You can install the development version of scenes from
+Install the released version of {scenes} from CRAN:
+
+``` r
+install.packages("scenes")
+```
+
+Or install the development version of scenes from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -28,10 +34,10 @@ You can install the development version of scenes from
 remotes::install_github("r4ds/scenes")
 ```
 
-You can see a demonstration of {scenes}
-[here](https://r4ds.io/scenesdemo).
-
 ## Use Cases
+
+You can see a demonstration of {scenes}
+[here](https://r4dscommunity.shinyapps.io/scenes/).
 
 Some examples of how you might use {scenes} to switch between different
 UIs in a Shiny app:
