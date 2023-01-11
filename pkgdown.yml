@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   actions: actions.html
   scenes: scenes.html
-last_built: 2023-01-11T02:34Z
+last_built: 2023-01-11T20:31Z
 urls:
   reference: https://r4ds.github.io/scenes/reference
   article: https://r4ds.github.io/scenes/articles

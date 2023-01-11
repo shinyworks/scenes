@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">scenes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +78,60 @@
 <code>actions</code>.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">scene1</span> <span class="op">&lt;-</span> <span class="fu">set_scene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"A shiny ui"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="req_has_query.html">req_has_query</a></span><span class="op">(</span><span class="st">"scene"</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scene1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ui</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A shiny ui"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $actions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $actions[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $check_fn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;partialised&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ~.fn(key = ~key, values = ~values, ...)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55c8fc5142a8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "GET"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "scene_action" "list"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "shiny_scene" "list"       </span>
+<span class="r-in"><span><span class="va">scene2</span> <span class="op">&lt;-</span> <span class="fu">set_scene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"Another shiny ui"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="req_has_query.html">req_has_query</a></span><span class="op">(</span><span class="st">"scene"</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scene2</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ui</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Another shiny ui"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $actions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $actions[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $check_fn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;partialised&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ~.fn(key = ~key, values = ~values, ...)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55c8fd0e4558&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "GET"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "scene_action" "list"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "shiny_scene" "list"       </span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

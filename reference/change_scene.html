@@ -12,7 +12,7 @@ Shiny UI to server."><meta property="og:image" content="https://r4ds.github.io/s
     
     <a class="navbar-brand me-2" href="../index.html">scenes</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,8 +70,8 @@ Shiny UI to server.</p>
 
 
 <dt>fall_through</dt>
-<dd><p>A ui to display if no conditions scense are valid. The
-default value, <code><a href="default_ui.html">default_ui()</a></code>, returns an HTTP 422 statud code indicating
+<dd><p>A ui to display if no scenes are valid. The
+default value, <code><a href="default_ui.html">default_ui()</a></code>, returns an HTTP 422 status code indicating
 that the request cannot be processed.</p></dd>
 
 </dl></div>
@@ -82,6 +82,38 @@ that the request cannot be processed.</p></dd>
 <p>A function that processes the request object to deliver a Shiny ui.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">scene1</span> <span class="op">&lt;-</span> <span class="fu"><a href="set_scene.html">set_scene</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"A shiny ui"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="req_has_query.html">req_has_query</a></span><span class="op">(</span><span class="st">"scene"</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">scene2</span> <span class="op">&lt;-</span> <span class="fu"><a href="set_scene.html">set_scene</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"Another shiny ui"</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="req_has_query.html">req_has_query</a></span><span class="op">(</span><span class="st">"scene"</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">change_scene</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">scene1</span>,</span></span>
+<span class="r-in"><span>  <span class="va">scene2</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ui</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (request) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     for (scene in scenes) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         if (!length(scene$actions) || purrr::every(scene$actions, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             ~.x$check_fn(request))) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             return(.parse_ui(scene$ui, request))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     return(.parse_ui(fall_through, request))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55c8fa4e2d28&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55c8fa4e1a20&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"http_methods_supported")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "GET"</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
