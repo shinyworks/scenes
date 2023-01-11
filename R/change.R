@@ -4,12 +4,27 @@
 #' Shiny UI to server.
 #'
 #' @param ... One or more `shiny_scene` objects.
-#' @param fall_through A ui to display if no conditions scense are valid. The
-#'   default value, [default_ui()], returns an HTTP 422 statud code indicating
+#' @param fall_through A ui to display if no scenes are valid. The
+#'   default value, [default_ui()], returns an HTTP 422 status code indicating
 #'   that the request cannot be processed.
 #'
 #' @return A function that processes the request object to deliver a Shiny ui.
 #' @export
+#' @examples
+#' scene1 <- set_scene(
+#'   "A shiny ui",
+#'   req_has_query("scene", 1)
+#' )
+#' scene2 <- set_scene(
+#'   "Another shiny ui",
+#'   req_has_query("scene", 2)
+#' )
+#'
+#' ui <- change_scene(
+#'   scene1,
+#'   scene2
+#' )
+#' ui
 change_scene <- function(..., fall_through = default_ui()) {
   scenes <- rlang::list2(...)
 
@@ -23,10 +38,7 @@ change_scene <- function(..., fall_through = default_ui()) {
   # Make sure the scenes object is "set" as far as this function is concerned.
   force(scenes)
 
-  # We will actually return a *function*, which shiny will feed the request
-  # object into. That function will then decide which UI to display.
-
-  # covr doesn't grok this.
+  # This is covered but covr doesn't grok this.
 
   # nocov start
   .multi_scene_ui <- function(request) {
@@ -119,6 +131,8 @@ change_scene <- function(..., fall_through = default_ui()) {
 #'
 #' @return A plain text UI with status code 422.
 #' @export
+#' @examples
+#' default_ui()
 default_ui <- function() {
   cli::cli_warn(
     "No ui specified for this request. Loading default ui."
@@ -133,5 +147,3 @@ default_ui <- function() {
     )
   )
 }
-
-utils::globalVariables("request")

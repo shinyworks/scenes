@@ -26,9 +26,9 @@ Use `{scenes}` to switch between alternative `{shiny}` UIs depending on properti
 It's possible to process the `request` using a UI *function,* instead of a standard `shiny::tagList()`.
 So why not process the `request` through such a function?
 
-I created `{scenes}` to write a single login process for the apps I produce for the [R4DS Online Learning Community](https://r4ds.io).
+I created `{scenes}` to write a single login process for the apps I produce for the [R4DS Online Learning Community](https://www.rfordatasci.com/).
 The goal was to create each UI without having to think about login, and then wrap those UIs in the common login framework.
-That process became the [`{shinyslack}`](https://r4ds.io/shinyslackgh) package.
+That process became the [`{shinyslack}`](https://github.com/r4ds/shinyslack) package.
 
 Perhaps you have your own login process.
 Or perhaps you want to show completely different UIs to different customer segments visiting the same URL, depending on a cookie or a query parameter.

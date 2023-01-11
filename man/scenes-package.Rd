@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Sometimes it is useful to serve up alternative 'shiny' UIs depending on information passed in the request object, such as the value of a cookie. This packages facilitates such switches.
+Sometimes it is useful to serve up alternative 'shiny' UIs depending on information passed in the request object, such as the value of a cookie or a query parameter. This packages facilitates such switches.
 }
 \seealso{
 Useful links:
@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jon Harmon \email{jonthegeek@gmail.com} (\href{https://orcid.org/0000-0003-4781-4346}{ORCID})
+\strong{Maintainer}: Jon Harmon \email{jonthegeek@gmail.com} (\href{https://orcid.org/0000-0003-4781-4346}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}
