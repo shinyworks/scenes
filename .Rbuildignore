@@ -12,3 +12,4 @@
 ^pkgdown$
 ^cran-comments\.md$
 ^R/_disable_autoload\.R$
+^CRAN-SUBMISSION$
