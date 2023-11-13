@@ -4,8 +4,8 @@ pkgdown_sha: ~
 articles:
   actions: actions.html
   scenes: scenes.html
-last_built: 2023-01-13T14:24Z
+last_built: 2023-11-13T20:00Z
 urls:
-  reference: https://r4ds.github.io/scenes/reference
-  article: https://r4ds.github.io/scenes/articles
+  reference: https://shinyworks.github.io/scenes/reference
+  article: https://shinyworks.github.io/scenes/articles
 
