@@ -1,20 +1,17 @@
 Package: scenes
 Title: Switch Between Alternative 'shiny' UIs
 Version: 0.1.0.9000
-Authors@R: c(
-    person("Jon", "Harmon", , "jonthegeek@gmail.com", role = c("aut", "cre", 
-           "cph"), comment = c(ORCID = "0000-0003-4781-4346"))
-    )
-Description: Sometimes it is useful to serve up alternative 'shiny' UIs 
-    depending on information passed in the request object, such as the value of 
-    a cookie or a query parameter. This packages facilitates such switches.
+Authors@R: 
+    person("Jon", "Harmon", , "jonthegeek@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0003-4781-4346"))
+Description: Sometimes it is useful to serve up alternative 'shiny' UIs
+    depending on information passed in the request object, such as the
+    value of a cookie or a query parameter. This packages facilitates such
+    switches.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
-URL: https://github.com/r4ds/scenes,
-    https://r4ds.github.io/scenes/
-BugReports: https://github.com/r4ds/scenes/issues
+URL: https://shinyworks.github.io/scenes/,
+    https://github.com/shinyworks/scenes
+BugReports: https://github.com/shinyworks/scenes/issues
 Imports: 
     cli,
     cookies,
@@ -29,5 +26,9 @@ Suggests:
     rmarkdown,
     stringr,
     testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
-VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
