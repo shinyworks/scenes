@@ -13,9 +13,9 @@ Sometimes it is useful to serve up alternative 'shiny' UIs depending on informat
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/r4ds/scenes}
-  \item \url{https://r4ds.github.io/scenes/}
-  \item Report bugs at \url{https://github.com/r4ds/scenes/issues}
+  \item \url{https://shinyworks.github.io/scenes/}
+  \item \url{https://github.com/shinyworks/scenes}
+  \item Report bugs at \url{https://github.com/shinyworks/scenes/issues}
 }
 
 }

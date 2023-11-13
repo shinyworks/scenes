@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# scenes <a href="https://r4ds.github.io/scenes/"><img src="man/figures/logo.svg" align="right" height="424" /></a>
+# scenes <a href="https://shinyworks.github.io/scenes/"><img src="man/figures/logo.svg" align="right" height="424" /></a>
 
 <!-- badges: start -->
 
@@ -10,8 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/scenes)](https://CRAN.R-project.org/package=scenes)
 [![Codecov test
-coverage](https://codecov.io/gh/r4ds/scenes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r4ds/scenes?branch=main)
-[![R-CMD-check](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml)
+coverage](https://codecov.io/gh/shinyworks/scenes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/shinyworks/scenes?branch=main)
+[![R-CMD-check](https://github.com/shinyworks/scenes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/shinyworks/scenes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of {scenes} is to make it easy to switch a {shiny} app between
@@ -31,13 +31,13 @@ Or install the development version of scenes from
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("r4ds/scenes")
+remotes::install_github("shinyworks/scenes")
 ```
 
 ## Use Cases
 
 You can see a demonstration of {scenes}
-[here](https://r4dscommunity.shinyapps.io/scenes/).
+[here](https://shinyworkscommunity.shinyapps.io/scenes/).
 
 Some examples of how you might use {scenes} to switch between different
 UIs in a Shiny app:

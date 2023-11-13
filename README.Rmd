@@ -13,13 +13,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-# scenes <a href="https://r4ds.github.io/scenes/"><img src="man/figures/logo.svg" align="right" height="424" /></a>
+# scenes <a href="https://shinyworks.github.io/scenes/"><img src="man/figures/logo.svg" align="right" height="424" /></a>
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/scenes)](https://CRAN.R-project.org/package=scenes)
-[![Codecov test coverage](https://codecov.io/gh/r4ds/scenes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r4ds/scenes?branch=main)
-[![R-CMD-check](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r4ds/scenes/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/shinyworks/scenes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/shinyworks/scenes?branch=main)
+[![R-CMD-check](https://github.com/shinyworks/scenes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/shinyworks/scenes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of {scenes} is to make it easy to switch a {shiny} app between alternative 
@@ -38,12 +38,12 @@ Or install the development version of scenes from [GitHub](https://github.com/) 
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("r4ds/scenes")
+remotes::install_github("shinyworks/scenes")
 ```
 
 ## Use Cases
 
-You can see a demonstration of {scenes} [here](https://r4dscommunity.shinyapps.io/scenes/).
+You can see a demonstration of {scenes} [here](https://shinyworkscommunity.shinyapps.io/scenes/).
 
 Some examples of how you might use {scenes} to switch between different UIs in a Shiny app:
 
