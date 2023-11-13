@@ -2,7 +2,8 @@
 
     Code
       default_ui()
-    Warning <rlang_warning>
+    Condition
+      Warning:
       No ui specified for this request. Loading default ui.
     Output
       $status
