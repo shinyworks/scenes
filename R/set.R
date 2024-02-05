@@ -1,12 +1,12 @@
 #' Link a UI to Required Actions
 #'
-#' A scene is a shiny ui and the actions that trigger it.
+#' Define a [`shiny_scene`][shiny_scene-class] by linking a UI to zero or more
+#' [`scene_action`][scene_action-class] requirements.
 #'
 #' @param ui A shiny ui.
 #' @param ... Zero or more [`scene_actions`][scene_action-class].
 #'
-#' @return A `shiny_scene` object, which is a list with components `ui` and
-#'   `actions`.
+#' @return A [`shiny_scene`][shiny_scene-class].
 #' @export
 #' @examples
 #' scene1 <- set_scene(
@@ -21,12 +21,7 @@
 #' scene2
 set_scene <- function(ui, ...) {
   actions <- rlang::list2(...)
-
-  # Standardize zero-length-vector actions and NULL actions to be the same
-  # thing.
   if (!length(actions)) actions <- NULL
-
-  # Wrap them up and return them.
   return(
     .new_shiny_scene(
       ui = ui,
@@ -40,8 +35,7 @@ set_scene <- function(ui, ...) {
 #' @param ui The ui to return for this set of actions.
 #' @param actions Zero or more actions required in order to invoke this ui.
 #'
-#' @return A `shiny_scene` object, which is a `list` with components `ui` and
-#'   `actions`.
+#' @return A [`shiny_scene`][shiny_scene-class].
 #' @keywords internal
 .new_shiny_scene <- function(ui, actions) {
   return(
@@ -54,3 +48,14 @@ set_scene <- function(ui, ...) {
     )
   )
 }
+
+#' `shiny_scene` class
+#'
+#' @description A `shiny_scene` object is a `list` with components `ui` and
+#'   `actions`. It is used to define what should display in a Shiny app in
+#'   different scenarios.
+#'
+#' @name shiny_scene-class
+#' @aliases shiny_scene
+#' @seealso [set_scene()]
+NULL

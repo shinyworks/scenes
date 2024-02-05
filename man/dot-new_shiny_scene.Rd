@@ -12,8 +12,7 @@
 \item{actions}{Zero or more actions required in order to invoke this ui.}
 }
 \value{
-A \code{shiny_scene} object, which is a \code{list} with components \code{ui} and
-\code{actions}.
+A \code{\link[=shiny_scene-class]{shiny_scene}}.
 }
 \description{
 Structure a Shiny Scene

@@ -1,9 +1,9 @@
 #' Choose Between Scenes
 #'
 #' Specify a function that uses actions and the request object to choose which
-#' Shiny UI to server.
+#' Shiny UI to serve.
 #'
-#' @param ... One or more `shiny_scene` objects.
+#' @param ... One or more [`shiny_scenes`][shiny_scene-class].
 #' @param fall_through A ui to display if no scenes are valid. The
 #'   default value, [default_ui()], returns an HTTP 422 status code indicating
 #'   that the request cannot be processed.
@@ -31,7 +31,7 @@ change_scene <- function(..., fall_through = default_ui()) {
   if (!length(scenes)) {
     cli::cli_warn(
       "No scene provided. All users will see the fall_through ui.",
-      class = "no_scenes"
+      class = "scenes_warning_no_scenes"
     )
   }
 
