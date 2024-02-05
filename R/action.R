@@ -26,41 +26,52 @@ construct_action <- function(fn,
                              ...,
                              negate = FALSE,
                              methods = "GET") {
-  rlang::arg_match(
-    methods,
-    c(
-      "GET",
-      "POST",
-      "PUT",
-      "HEAD",
-      "DELETE",
-      "PATCH",
-      "OPTIONS",
-      "CONNECT",
-      "TRACE"
-    ),
-    multiple = TRUE
-  )
-  stopifnot(
-    is.logical(negate),
-    length(negate) == 1
-  )
-
-  check_fn <- fn
-  if (...length()) {
-    check_fn <- purrr::partial({{ fn }}, ...)
-  }
-
-  if (negate) {
-    check_fn <- Negate(check_fn)
-  }
-
+  methods <- .validate_methods(methods)
+  negate <- .validate_logical_scalar(negate)
+  check_fn <- .decorate_check_fn(fn, ..., negate = negate)
   return(
     .new_action(
       check_fn = check_fn,
       methods = methods
     )
   )
+}
+
+.validate_methods <- function(methods, call = rlang::caller_env()) {
+  rlang::arg_match(
+    methods,
+    c(
+      "GET", "POST", "PUT", "HEAD", "DELETE",
+      "PATCH", "OPTIONS", "CONNECT", "TRACE"
+    ),
+    multiple = TRUE,
+    error_call = call
+  )
+}
+
+.validate_logical_scalar <- function(x,
+                                     arg = rlang::caller_arg(x),
+                                     call = rlang::caller_env()) {
+  if (rlang::is_scalar_logical(x)) {
+    return(x)
+  }
+  cli::cli_abort(
+    c(
+      "Argument {.arg {arg}} must be a length-1 logical vector.",
+      x = "{.arg {arg}} is {.obj_type_friendly {x}}."
+    ),
+    call = call,
+    class = "scenes_error_logical_scalar"
+  )
+}
+
+.decorate_check_fn <- function(fn, ..., negate) {
+
+  check_fn <- purrr::partial({{ fn }}, ...)
+  if (negate) {
+    check_fn <- Negate(check_fn)
+  }
+  return(check_fn)
 }
 
 #' Structure a Scene Action
