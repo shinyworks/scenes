@@ -9,7 +9,7 @@ set_scene(ui, ...)
 \arguments{
 \item{ui}{A shiny ui.}
 
-\item{...}{One or more \code{scene_action} objects.}
+\item{...}{Zero or more \code{\link[=scene_action-class]{scene_actions}}.}
 }
 \value{
 A \code{shiny_scene} object, which is a list with components \code{ui} and

@@ -18,15 +18,15 @@ action. Otherwise the actual value of the query must be present in
 \code{not} matched.}
 }
 \value{
-A \code{scene_action} object, to be used in \code{\link[=set_scene]{set_scene()}}.
+A \code{\link[=scene_action-class]{scene_action}}, to be used in \code{\link[=set_scene]{set_scene()}}.
 }
 \description{
-Create a \code{scene_action} specifying a key that must be present (or absent) in
-the query string (the part of the URL when the shiny app was called, after
-"?"), and optionally a value or values for that key. For example, in
-\code{myapps.shinyapps.io/myapp?param1=1&param2=text}, \code{?param1=1&param2=text} is
-the query string, \code{param1} and \code{param2} are keys, and \code{1} and \code{text} are
-their corresponding values.
+Create a \code{\link[=scene_action-class]{scene_action}} specifying a key that must be
+present (or absent) in the query string (the part of the URL when the shiny
+app was called, after "?"), and optionally a value or values for that key.
+For example, in \code{myapps.shinyapps.io/myapp?param1=1&param2=text},
+\code{?param1=1&param2=text} is the query string, \code{param1} and \code{param2} are keys,
+and \code{1} and \code{text} are their corresponding values.
 }
 \examples{
 # Specify an action to detect a "code" parameter in the query.

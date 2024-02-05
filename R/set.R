@@ -3,7 +3,7 @@
 #' A scene is a shiny ui and the actions that trigger it.
 #'
 #' @param ui A shiny ui.
-#' @param ... One or more `scene_action` objects.
+#' @param ... Zero or more [`scene_actions`][scene_action-class].
 #'
 #' @return A `shiny_scene` object, which is a list with components `ui` and
 #'   `actions`.

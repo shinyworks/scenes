@@ -13,8 +13,7 @@ associated scene should be returned.}
 \item{methods}{The http methods supported by this action.}
 }
 \value{
-A \code{scene_action} object, which is a \code{list} with components \code{check_fn}
-and \code{methods}.
+A \code{\link[=scene_action-class]{scene_action}}.
 }
 \description{
 Structure a Scene Action

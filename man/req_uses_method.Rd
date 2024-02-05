@@ -19,11 +19,11 @@ req_uses_post(negate = FALSE)
 \code{not} matched.}
 }
 \value{
-A \code{scene_action} object, to be used in \code{\link[=set_scene]{set_scene()}}.
+A \code{\link[=scene_action-class]{scene_action}}, to be used in \code{\link[=set_scene]{set_scene()}}.
 }
 \description{
-Create a \code{scene_action} specifying the HTTP method that must be used (or not
-used).
+Create a \code{\link[=scene_action-class]{scene_action}} specifying the HTTP method that
+must be used (or not used).
 }
 \examples{
 req_uses_method("GET")

@@ -1,7 +1,7 @@
 #' Construct a Scene Action
 #'
 #' Generate the check function for an action, and use it to create a
-#' `scene_action` object.
+#' [`scene_action`][scene_action-class] object.
 #'
 #' @param fn A function that takes a request (and potentially other arguments)
 #'   and returns `TRUE` or `FALSE`.
@@ -11,7 +11,7 @@
 #' @param methods The http methods which needs to be accepted in order for this
 #'   function to make sense. Default "GET" should work in almost all cases.
 #'
-#' @return A `scene_action` object.
+#' @return A [`scene_action`][scene_action-class].
 #' @export
 #'
 #' @examples
@@ -69,8 +69,7 @@ construct_action <- function(fn,
 #'   associated scene should be returned.
 #' @param methods The http methods supported by this action.
 #'
-#' @return A `scene_action` object, which is a `list` with components `check_fn`
-#'   and `methods`.
+#' @return A [`scene_action`][scene_action-class].
 #' @keywords internal
 .new_action <- function(check_fn, methods) {
   return(
@@ -83,3 +82,14 @@ construct_action <- function(fn,
     )
   )
 }
+
+#' `scene_action` class
+#'
+#' @description A `scene_action` object is a `list` with components `check_fn`
+#'   and `methods`. It is used to test whether a request should trigger a
+#'   particlar scene.
+#'
+#' @name scene_action-class
+#' @aliases scene_action
+#' @seealso [construct_action()]
+NULL

@@ -20,11 +20,11 @@ otherwise.}
 \code{not} matched.}
 }
 \value{
-A \code{scene_action} object, to be used in \code{\link[=set_scene]{set_scene()}}.
+A \code{\link[=scene_action-class]{scene_action}}, to be used in \code{\link[=set_scene]{set_scene()}}.
 }
 \description{
-Create a \code{scene_action} specifying a cookie that must be present (or absent)
-and optionally a check function for that cookie.
+Create a \code{\link[=scene_action-class]{scene_action}} specifying a cookie that must
+be present (or absent) and optionally a check function for that cookie.
 }
 \examples{
 # Specify an action to detect a cookie named "mycookie".

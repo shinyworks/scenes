@@ -1,12 +1,12 @@
 #' Switch Scenes on Cookies
 #'
-#' Create a `scene_action` specifying a cookie that must be present (or absent)
-#' and optionally a check function for that cookie.
+#' Create a [`scene_action`][scene_action-class] specifying a cookie that must
+#' be present (or absent) and optionally a check function for that cookie.
 #'
 #' @inheritParams .req_has_cookie_impl
 #' @inheritParams construct_action
 #'
-#' @return A `scene_action` object, to be used in [set_scene()].
+#' @return A [`scene_action`][scene_action-class], to be used in [set_scene()].
 #' @export
 #'
 #' @examples

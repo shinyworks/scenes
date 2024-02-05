@@ -1,12 +1,12 @@
 #' Switch Scenes on Method
 #'
-#' Create a `scene_action` specifying the HTTP method that must be used (or not
-#' used).
+#' Create a [`scene_action`][scene_action-class] specifying the HTTP method that
+#' must be used (or not used).
 #'
 #' @inheritParams .req_uses_method_impl
 #' @inheritParams construct_action
 #'
-#' @return A `scene_action` object, to be used in [set_scene()].
+#' @return A [`scene_action`][scene_action-class], to be used in [set_scene()].
 #' @export
 #'
 #' @examples
