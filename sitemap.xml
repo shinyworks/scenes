@@ -43,9 +43,6 @@
     <loc>https://shinyworks.github.io/scenes/reference/dot-compile_methods.html</loc>
   </url>
   <url>
-    <loc>https://shinyworks.github.io/scenes/reference/dot-error_message.html</loc>
-  </url>
-  <url>
     <loc>https://shinyworks.github.io/scenes/reference/dot-new_action.html</loc>
   </url>
   <url>
@@ -67,12 +64,6 @@
     <loc>https://shinyworks.github.io/scenes/reference/dot-shared-parameters.html</loc>
   </url>
   <url>
-    <loc>https://shinyworks.github.io/scenes/reference/dot-validate_character_scalar.html</loc>
-  </url>
-  <url>
-    <loc>https://shinyworks.github.io/scenes/reference/dot-validate_values.html</loc>
-  </url>
-  <url>
     <loc>https://shinyworks.github.io/scenes/reference/index.html</loc>
   </url>
   <url>
@@ -85,9 +76,15 @@
     <loc>https://shinyworks.github.io/scenes/reference/req_uses_method.html</loc>
   </url>
   <url>
+    <loc>https://shinyworks.github.io/scenes/reference/scene_action-class.html</loc>
+  </url>
+  <url>
     <loc>https://shinyworks.github.io/scenes/reference/scenes-package.html</loc>
   </url>
   <url>
     <loc>https://shinyworks.github.io/scenes/reference/set_scene.html</loc>
+  </url>
+  <url>
+    <loc>https://shinyworks.github.io/scenes/reference/shiny_scene-class.html</loc>
   </url>
 </urlset>
