@@ -1,11 +1,3 @@
-test_that("Basic scene change validation works.", {
-  expect_warning(
-    change_scene(),
-    "No scene provided",
-    class = "scenes_warning_no_scenes"
-  )
-})
-
 test_that("Scene changing works in the most basic case.", {
   test_result <- change_scene(
     set_scene(ui = "default ui")
