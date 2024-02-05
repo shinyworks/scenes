@@ -7,7 +7,8 @@
 .parse_ui(ui, request)
 }
 \arguments{
-\item{ui}{A function defining the UI of a Shiny app, or a \code{\link[shiny:reexports]{shiny::tagList()}}.}
+\item{ui}{A 0- or 1-argument function defining the UI of a Shiny app, or a
+\code{\link[shiny:reexports]{shiny::tagList()}}.}
 
 \item{request}{The shiny request object.}
 }

@@ -1,38 +1,19 @@
 #' Switch Scenes on Method
 #'
-#' Create a `scene_action` specifying the HTTP method that must be used (or not
-#' used).
+#' Create a [`scene_action`][scene_action-class] specifying the HTTP method that
+#' must be used (or not used).
 #'
 #' @inheritParams .req_uses_method_impl
 #' @inheritParams construct_action
 #'
-#' @return A `scene_action` object, to be used in [set_scene()].
+#' @return A [`scene_action`][scene_action-class], to be used in [set_scene()].
 #' @export
 #'
 #' @examples
 #' req_uses_method("GET")
 #' req_uses_method("POST")
 req_uses_method <- function(method, negate = FALSE) {
-  valid_methods <- c(
-    "GET", "POST", "PUT",
-    "HEAD", "DELETE", "PATCH",
-    "OPTIONS", "CONNECT", "TRACE"
-  )
-
-  if (missing(method)) {
-    # I combine error messaging for the various 0-length cases, since toupper
-    # coerces.
-    method <- character(0)
-  }
-
-  method <- toupper(method)
-
-  .validate_character_scalar(
-    parameter = method,
-    parameter_name = "method",
-    valid_values = valid_methods
-  )
-
+  method <- .validate_methods(method, multiple = FALSE)
   return(
     construct_action(
       fn = .req_uses_method_impl,

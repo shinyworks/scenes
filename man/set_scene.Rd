@@ -9,14 +9,14 @@ set_scene(ui, ...)
 \arguments{
 \item{ui}{A shiny ui.}
 
-\item{...}{One or more \code{scene_action} objects.}
+\item{...}{Zero or more \code{\link[=scene_action-class]{scene_actions}}.}
 }
 \value{
-A \code{shiny_scene} object, which is a list with components \code{ui} and
-\code{actions}.
+A \code{\link[=shiny_scene-class]{shiny_scene}}.
 }
 \description{
-A scene is a shiny ui and the actions that trigger it.
+Define a \code{\link[=shiny_scene-class]{shiny_scene}} by linking a UI to zero or more
+\code{\link[=scene_action-class]{scene_action}} requirements.
 }
 \examples{
 scene1 <- set_scene(

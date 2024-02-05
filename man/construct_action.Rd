@@ -19,11 +19,11 @@ and returns \code{TRUE} or \code{FALSE}.}
 function to make sense. Default "GET" should work in almost all cases.}
 }
 \value{
-A \code{scene_action} object.
+A \code{\link[=scene_action-class]{scene_action}}.
 }
 \description{
 Generate the check function for an action, and use it to create a
-\code{scene_action} object.
+\code{\link[=scene_action-class]{scene_action}} object.
 }
 \examples{
 simple_function <- function(request) {

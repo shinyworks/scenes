@@ -1,16 +1,16 @@
 #' Switch Scenes on Query
 #'
-#' Create a `scene_action` specifying a key that must be present (or absent) in
-#' the query string (the part of the URL when the shiny app was called, after
-#' "?"), and optionally a value or values for that key. For example, in
-#' `myapps.shinyapps.io/myapp?param1=1&param2=text`, `?param1=1&param2=text` is
-#' the query string, `param1` and `param2` are keys, and `1` and `text` are
-#' their corresponding values.
+#' Create a [`scene_action`][scene_action-class] specifying a key that must be
+#' present (or absent) in the query string (the part of the URL when the shiny
+#' app was called, after "?"), and optionally a value or values for that key.
+#' For example, in `myapps.shinyapps.io/myapp?param1=1&param2=text`,
+#' `?param1=1&param2=text` is the query string, `param1` and `param2` are keys,
+#' and `1` and `text` are their corresponding values.
 #'
 #' @inheritParams .req_has_query_impl
 #' @inheritParams construct_action
 #'
-#' @return A `scene_action` object, to be used in [set_scene()].
+#' @return A [`scene_action`][scene_action-class], to be used in [set_scene()].
 #' @export
 #'
 #' @examples
@@ -26,11 +26,7 @@
 req_has_query <- function(key, values = NULL, negate = FALSE) {
   # I consciously decided NOT to vectorize this, because I think that would
   # complicate the call.
-  .validate_character_scalar(
-    parameter = key,
-    parameter_name = "key"
-  )
-
+  key <- .validate_character_scalar(key)
   return(
     construct_action(
       fn = .req_has_query_impl,

@@ -9,7 +9,7 @@ Description: Sometimes it is useful to serve up alternative 'shiny' UIs
     value of a cookie or a query parameter. This packages facilitates such
     switches.
 License: MIT + file LICENSE
-URL: https://shinyworks.github.io/scenes/,
+URL: https://scenes.shinyworks.org/scenes/,
     https://github.com/shinyworks/scenes
 BugReports: https://github.com/shinyworks/scenes/issues
 Imports: 
@@ -31,4 +31,4 @@ VignetteBuilder:
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0

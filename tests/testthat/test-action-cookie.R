@@ -121,19 +121,15 @@ test_that("req_has_cookie works.", {
 
 test_that("req_has_cookie errors cleanly.", {
   expect_error(
-    req_has_cookie(),
-    "no default"
-  )
-  expect_error(
     req_has_cookie(NULL),
-    "is missing"
+    class = "scenes_error_character_scalar"
   )
   expect_error(
     req_has_cookie(letters),
-    "26 values"
+    class = "scenes_error_character_scalar"
   )
   expect_error(
     req_has_cookie(1),
-    "<numeric> vector"
+    class = "scenes_error_character_scalar"
   )
 })
