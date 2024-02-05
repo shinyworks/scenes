@@ -25,28 +25,25 @@
 #'   }
 #' )
 #'
-#' # Specify an action to detect a cookie named "mycookie" that has N
-#' # characters. This would make more sense in a case where validation_fn isn't
-#' # an anonymous function.
+#' # Specify an action to detect a cookie named "mycookie" that has a
+#' # variable-defined number of characters.
+#' expect_n_chars <- function(x, N) {
+#'   nchar(x) == N
+#' }
+#' my_N <- 27 # Perhaps set by an environment variable.
 #' req_has_cookie(
 #'   cookie_name = "mycookie",
-#'   validation_fn = function(cookie_value, N) {
-#'     nchar(cookie_value) == N
-#'   },
-#'   N = 27
+#'   validation_fn = expect_n_chars,
+#'   N = my_N
 #' )
 req_has_cookie <- function(cookie_name,
                            validation_fn = NULL,
                            ...,
                            negate = FALSE) {
-  .validate_character_scalar(
-    parameter = cookie_name,
-    parameter_name = "cookie_name"
-  )
-
+  cookie_name <- .validate_character_scalar(cookie_name)
   return(
     construct_action(
-      fn = .req_has_cookie_impl,
+      .req_has_cookie_impl,
       cookie_name = cookie_name,
       validation_fn = validation_fn,
       ...,

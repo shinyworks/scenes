@@ -26,11 +26,7 @@
 req_has_query <- function(key, values = NULL, negate = FALSE) {
   # I consciously decided NOT to vectorize this, because I think that would
   # complicate the call.
-  .validate_character_scalar(
-    parameter = key,
-    parameter_name = "key"
-  )
-
+  key <- .validate_character_scalar(key)
   return(
     construct_action(
       fn = .req_has_query_impl,

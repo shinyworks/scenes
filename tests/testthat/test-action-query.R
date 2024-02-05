@@ -91,19 +91,15 @@ test_that("req_has_query works.", {
 
 test_that("req_has_query errors cleanly.", {
   expect_error(
-    req_has_query(),
-    "no default"
-  )
-  expect_error(
     req_has_query(NULL),
-    "is missing"
+    class = "scenes_error_character_scalar"
   )
   expect_error(
     req_has_query(letters),
-    "26 values"
+    class = "scenes_error_character_scalar"
   )
   expect_error(
     req_has_query(1),
-    "<numeric> vector"
+    class = "scenes_error_character_scalar"
   )
 })

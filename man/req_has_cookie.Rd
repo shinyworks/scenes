@@ -42,14 +42,15 @@ req_has_cookie(
   }
 )
 
-# Specify an action to detect a cookie named "mycookie" that has N
-# characters. This would make more sense in a case where validation_fn isn't
-# an anonymous function.
+# Specify an action to detect a cookie named "mycookie" that has a
+# variable-defined number of characters.
+expect_n_chars <- function(x, N) {
+  nchar(x) == N
+}
+my_N <- 27 # Perhaps set by an environment variable.
 req_has_cookie(
   cookie_name = "mycookie",
-  validation_fn = function(cookie_value, N) {
-    nchar(cookie_value) == N
-  },
-  N = 27
+  validation_fn = expect_n_chars,
+  N = my_N
 )
 }

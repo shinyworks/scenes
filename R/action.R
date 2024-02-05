@@ -37,31 +37,18 @@ construct_action <- function(fn,
   )
 }
 
-.validate_methods <- function(methods, call = rlang::caller_env()) {
+.validate_methods <- function(methods,
+                              multiple = TRUE,
+                              call = rlang::caller_env()) {
+  methods <- toupper(methods)
   rlang::arg_match(
     methods,
     c(
       "GET", "POST", "PUT", "HEAD", "DELETE",
       "PATCH", "OPTIONS", "CONNECT", "TRACE"
     ),
-    multiple = TRUE,
+    multiple = multiple,
     error_call = call
-  )
-}
-
-.validate_logical_scalar <- function(x,
-                                     arg = rlang::caller_arg(x),
-                                     call = rlang::caller_env()) {
-  if (rlang::is_scalar_logical(x)) {
-    return(x)
-  }
-  cli::cli_abort(
-    c(
-      "Argument {.arg {arg}} must be a length-1 logical vector.",
-      x = "{.arg {arg}} is {.obj_type_friendly {x}}."
-    ),
-    call = call,
-    class = "scenes_error_logical_scalar"
   )
 }
 

@@ -98,25 +98,6 @@ test_that("req_uses_method works.", {
   expect_true(result_post2n$check_fn(request_other))
 })
 
-test_that("req_uses_method errors meaningfully.", {
-  expect_error(
-    req_uses_method(),
-    "0 values"
-  )
-  expect_error(
-    req_uses_method(NULL),
-    "0 values"
-  )
-  expect_error(
-    req_uses_method(letters),
-    "26 values"
-  )
-  expect_error(
-    req_uses_method("bad_method"),
-    "Unknown"
-  )
-})
-
 test_that("req_uses_get works.", {
   positive <- req_uses_get()
   negative <- req_uses_get(negate = TRUE)

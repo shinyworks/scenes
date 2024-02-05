@@ -13,26 +13,7 @@
 #' req_uses_method("GET")
 #' req_uses_method("POST")
 req_uses_method <- function(method, negate = FALSE) {
-  valid_methods <- c(
-    "GET", "POST", "PUT",
-    "HEAD", "DELETE", "PATCH",
-    "OPTIONS", "CONNECT", "TRACE"
-  )
-
-  if (missing(method)) {
-    # I combine error messaging for the various 0-length cases, since toupper
-    # coerces.
-    method <- character(0)
-  }
-
-  method <- toupper(method)
-
-  .validate_character_scalar(
-    parameter = method,
-    parameter_name = "method",
-    valid_values = valid_methods
-  )
-
+  method <- .validate_methods(method, multiple = FALSE)
   return(
     construct_action(
       fn = .req_uses_method_impl,
